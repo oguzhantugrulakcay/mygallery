@@ -37,3 +37,7 @@
 /Volumes/OguzhanSSD/Projects/mygallery/obj/Debug/net8.0/mygallery.pdb
 /Volumes/OguzhanSSD/Projects/mygallery/obj/Debug/net8.0/mygallery.genruntimeconfig.cache
 /Volumes/OguzhanSSD/Projects/mygallery/obj/Debug/net8.0/ref/mygallery.dll
+/Volumes/OguzhanSSD/Projects/mygallery/bin/Debug/net8.0/BouncyCastle.Cryptography.dll
+/Volumes/OguzhanSSD/Projects/mygallery/bin/Debug/net8.0/MailKit.dll
+/Volumes/OguzhanSSD/Projects/mygallery/bin/Debug/net8.0/MimeKit.dll
+/Volumes/OguzhanSSD/Projects/mygallery/obj/Debug/net8.0/mygallery.sourcelink.json
