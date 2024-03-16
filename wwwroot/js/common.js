@@ -15,26 +15,6 @@ function initSparkline() {
 		var $this = $(this);
 		$this.sparkline('html', $this.data());
     });
-    
-    // block-header bar chart js
-    $('.bh_visitors').sparkline('html', {
-        type: 'bar',
-        height: '42px',
-        barColor: '#a27ce6',
-        barWidth: 5,
-    });
-    $('.bh_visits').sparkline('html', {
-        type: 'bar',
-        height: '42px',
-        barColor: '#0078ff',
-        barWidth: 5,
-    });
-    $('.bh_chats').sparkline('html', {
-        type: 'bar',
-        height: '42px',
-        barColor: '#50d38a',
-        barWidth: 5,
-    });
 }
 //Skin changer
 function skinChanger() {

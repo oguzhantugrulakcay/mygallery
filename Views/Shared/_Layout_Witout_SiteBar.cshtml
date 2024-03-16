@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - mygallery</title>
+    <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/vendor/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/css/main.css">
+    <link rel="stylesheet" href="~/css/color_skins.css">
+</head>
+<body class="theme-red">
+   <div id="wrapper">
+
+    <nav class="navbar navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-btn">
+                <button type="button" class="btn-toggle-offcanvas"><i class="lnr lnr-menu fa fa-bars"></i></button>
+            </div>
+
+            <div class="navbar-brand">
+                <a href="index.html"><img src="../images/logo.png" alt="Lucid Logo" class="img-responsive logo"></a>                
+            </div>
+            
+        </div>
+    </nav>
+
+    <div id="main-content-witout-sidebar">
+        @RenderBody()
+    </div>
+    
+</div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - mygallery - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/vendor/popperjs/popper.min.js"></script>
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/vendor/metisMenu/metisMenu.js"></script>
+    <script src="~/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/vendor/moment/moment.min.js"></script>
+    <script src="~/vendor/mustache/mustache.min.js"></script>
+    <script src="~/vendor/konsept/konseptgrid.js"></script>
+    <script src="~/vendor/sweetalert/sweetalert.min.js"></script>
+    <script src="~/js/common.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

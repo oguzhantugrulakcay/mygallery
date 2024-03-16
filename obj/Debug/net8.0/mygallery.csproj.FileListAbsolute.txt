@@ -28,9 +28,7 @@
 /Volumes/OguzhanSSD/Projects/mygallery/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.mygallery.props
 /Volumes/OguzhanSSD/Projects/mygallery/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.mygallery.props
 /Volumes/OguzhanSSD/Projects/mygallery/obj/Debug/net8.0/staticwebassets.pack.json
-/Volumes/OguzhanSSD/Projects/mygallery/obj/Debug/net8.0/scopedcss/Views/Shared/_Layout.cshtml.rz.scp.css
 /Volumes/OguzhanSSD/Projects/mygallery/obj/Debug/net8.0/scopedcss/bundle/mygallery.styles.css
-/Volumes/OguzhanSSD/Projects/mygallery/obj/Debug/net8.0/scopedcss/projectbundle/mygallery.bundle.scp.css
 /Volumes/OguzhanSSD/Projects/mygallery/obj/Debug/net8.0/mygallery.csproj.CopyComplete
 /Volumes/OguzhanSSD/Projects/mygallery/obj/Debug/net8.0/mygallery.dll
 /Volumes/OguzhanSSD/Projects/mygallery/obj/Debug/net8.0/refint/mygallery.dll

@@ -4163,10 +4163,10 @@
      -o-transition: all 0.3s ease-in-out;
      transition: all 0.3s ease-in-out;
      width: calc(100% - 250px);
-     float: right;
+     float:none;
      position: relative;
      margin-top: 65px;
-     padding: 0 10px
+     padding: 0 15%
  }
 
  @media screen and (max-width: 1200px) {
@@ -4175,6 +4175,25 @@
          padding: 0
      }
  }
+ #main-content-witout-sidebar {
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    width: calc(100% - 250px);
+    float: right;
+    position: relative;
+    margin-top: 65px;
+    padding: 0 10px
+}
+
+@media screen and (max-width: 1200px) {
+    #main-content-witout-sidebar {
+        width: 100%;
+        padding: 0
+    }
+}
 
  html.fullscreen-bg,
  html.fullscreen-bg body,

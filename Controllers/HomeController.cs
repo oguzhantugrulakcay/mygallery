@@ -17,8 +17,8 @@ public class HomeController : BaseController
     {
         return View();
     }
-
-    public IActionResult Privacy()
+    [HttpGet]
+    public IActionResult SatinAlma()
     {
         return View();
     }

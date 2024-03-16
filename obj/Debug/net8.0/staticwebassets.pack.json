@@ -1,10 +1,6 @@
 {
   "Files": [
     {
-      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/obj/Debug/net8.0/scopedcss/projectbundle/mygallery.bundle.scp.css",
-      "PackagePath": "staticwebassets/mygallery.bundle.scp.css"
-    },
-    {
       "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/css/color_skins.css",
       "PackagePath": "staticwebassets/css/color_skins.css"
     },
@@ -55,6 +51,10 @@
     {
       "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/fonts/weathericons-regular-webfont.woff",
       "PackagePath": "staticwebassets/fonts/weathericons-regular-webfont.woff"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/images/logo (1).svg",
+      "PackagePath": "staticwebassets/images/logo (1).svg"
     },
     {
       "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/images/logo.png",
@@ -12349,6 +12349,18 @@
       "PackagePath": "staticwebassets/vendor/jvectormap/jquery-jvectormap-world-mill-en.js"
     },
     {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/konsept/konseptgrid.css",
+      "PackagePath": "staticwebassets/vendor/konsept/konseptgrid.css"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/konsept/konseptgrid.js",
+      "PackagePath": "staticwebassets/vendor/konsept/konseptgrid.js"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/konsept/konseptselector.js",
+      "PackagePath": "staticwebassets/vendor/konsept/konseptselector.js"
+    },
+    {
       "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/light-gallery/css/lg-fb-comment-box.css",
       "PackagePath": "staticwebassets/vendor/light-gallery/css/lg-fb-comment-box.css"
     },
@@ -12519,6 +12531,22 @@
     {
       "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/metisMenu/metisMenu.js",
       "PackagePath": "staticwebassets/vendor/metisMenu/metisMenu.js"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/moment/moment-with-locales.min.js",
+      "PackagePath": "staticwebassets/vendor/moment/moment-with-locales.min.js"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/moment/moment.min.js",
+      "PackagePath": "staticwebassets/vendor/moment/moment.min.js"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/moment/moment.min.js.map",
+      "PackagePath": "staticwebassets/vendor/moment/moment.min.js.map"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/moment/tr.js",
+      "PackagePath": "staticwebassets/vendor/moment/tr.js"
     },
     {
       "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/morrisjs/.bower.json",
@@ -12825,6 +12853,10 @@
       "PackagePath": "staticwebassets/vendor/multi-select/js/jquery.multi-select.js"
     },
     {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/mustache/mustache.min.js",
+      "PackagePath": "staticwebassets/vendor/mustache/mustache.min.js"
+    },
+    {
       "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/nestable/jquery-nestable.css",
       "PackagePath": "staticwebassets/vendor/nestable/jquery-nestable.css"
     },
@@ -12855,6 +12887,10 @@
     {
       "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/parsleyjs/js/parsley.min.js",
       "PackagePath": "staticwebassets/vendor/parsleyjs/js/parsley.min.js"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/popperjs/popper.min.js",
+      "PackagePath": "staticwebassets/vendor/popperjs/popper.min.js"
     },
     {
       "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/rangeslider/css/ion.rangeSlider.css",
