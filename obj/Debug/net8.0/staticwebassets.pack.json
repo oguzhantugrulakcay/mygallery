@@ -53,6 +53,14 @@
       "PackagePath": "staticwebassets/fonts/weathericons-regular-webfont.woff"
     },
     {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/images/auth_bg.jpg",
+      "PackagePath": "staticwebassets/images/auth_bg.jpg"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/images/car.svg",
+      "PackagePath": "staticwebassets/images/car.svg"
+    },
+    {
       "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/images/logo (1).svg",
       "PackagePath": "staticwebassets/images/logo (1).svg"
     },
@@ -65,8 +73,20 @@
       "PackagePath": "staticwebassets/images/logo.svg"
     },
     {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/images/vehicle_new_orijinal.png",
+      "PackagePath": "staticwebassets/images/vehicle_new_orijinal.png"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/images/vehicle_plan.png",
+      "PackagePath": "staticwebassets/images/vehicle_plan.png"
+    },
+    {
       "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/js/common.js",
       "PackagePath": "staticwebassets/js/common.js"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/js/damage-selector.js",
+      "PackagePath": "staticwebassets/js/damage-selector.js"
     },
     {
       "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/js/site.js",

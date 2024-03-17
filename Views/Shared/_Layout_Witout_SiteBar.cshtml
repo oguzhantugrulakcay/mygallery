@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="~/vendor/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="~/css/main.css">
     <link rel="stylesheet" href="~/css/color_skins.css">
+    @* <link rel="stylesheet" href="~/vendor/sweetalert/sweetalert.css"/> *@
+    
+    @await RenderSectionAsync("Css", required: false)
 </head>
 <body class="theme-red">
    <div id="wrapper">
@@ -44,7 +47,8 @@
     <script src="~/vendor/moment/moment.min.js"></script>
     <script src="~/vendor/mustache/mustache.min.js"></script>
     <script src="~/vendor/konsept/konseptgrid.js"></script>
-    <script src="~/vendor/sweetalert/sweetalert.min.js"></script>
+    @* <script src="~/vendor/sweetalert/sweetalert.min.js"></script> *@
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="~/js/common.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
