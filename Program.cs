@@ -1,7 +1,10 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Options;
+using mygallery.Context;
 using mygallery.Models;
 using Serilog;
 using Serilog.Events;
@@ -95,10 +98,10 @@ using (var connection = new SqlConnection(cs))
     }
 }
 
-// builder.Services.AddDbContext<DeskPlusContext>(options =>
-// options.UseLazyLoadingProxies()
-//        .UseSqlServer(cs, o => o.UseCompatibilityLevel(sqlCompatibilityLevel))
-//        .ConfigureWarnings(b => b.Ignore(SqlServerEventId.SavepointsDisabledBecauseOfMARS)));
+builder.Services.AddDbContext<MyGalleryContext>(options =>
+options.UseLazyLoadingProxies()
+       .UseSqlServer(cs, o => o.UseCompatibilityLevel(sqlCompatibilityLevel))
+       .ConfigureWarnings(b => b.Ignore(SqlServerEventId.SavepointsDisabledBecauseOfMARS)));
 
 #endregion
 var app = builder.Build();

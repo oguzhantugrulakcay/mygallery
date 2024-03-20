@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+
+namespace mygallery.Context;
+
+public partial class MyGalleryContext : DbContext
+{
+    public MyGalleryContext(DbContextOptions<MyGalleryContext> options)
+        : base(options)
+    {
+    }
+
+    public virtual DbSet<Brand> Brands { get; set; }
+
+    public virtual DbSet<Model> Models { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.HasDefaultSchema("mygallery_admin");
+
+        modelBuilder.Entity<Brand>(entity =>
+        {
+            entity.HasKey(e => e.BrandId).HasName("PK_BRAND");
+
+            entity.Property(e => e.BrandName).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<Model>(entity =>
+        {
+            entity.HasKey(e => e.ModelId).HasName("PK_MODEL");
+
+            entity.Property(e => e.ModelName).HasMaxLength(50);
+
+            entity.HasOne(d => d.Brand).WithMany(p => p.Models)
+                .HasForeignKey(d => d.BrandId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("ModelMustHaveBrand");
+        });
+
+        OnModelCreatingPartial(modelBuilder);
+    }
+
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+}
