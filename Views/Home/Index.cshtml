@@ -150,7 +150,7 @@
 <div class="grey-border"><div class="container"><div class="row"><div class="col b-bottom"></div></div></div></div>
 
 
-
+<button id="cmdInsert" class="btn btn-aqua">Yükle</button>
 
 <!-- CONTENT-2
 ============================================= -->
@@ -1348,3 +1348,14 @@
 		</div>	 <!-- End row -->
 	</div>	   <!-- End container -->
 </section>	<!-- END CALL TO ACTION-1 -->
+@section Scripts {
+	<script>
+		$(document).ready(function () {
+			$('#cmdInsert').click(function (e) {
+				mg.postJsonData('/jsonLoadBranModels', null, function (result) {
+					alert(result);
+				});
+			})
+		});
+	</script>
+}

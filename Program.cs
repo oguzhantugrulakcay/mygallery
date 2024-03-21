@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Data.SqlClient;
@@ -5,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Options;
 using mygallery.Context;
+using mygallery.Infrastuctures;
 using mygallery.Models;
 using Serilog;
 using Serilog.Events;
@@ -102,6 +104,7 @@ builder.Services.AddDbContext<MyGalleryContext>(options =>
 options.UseLazyLoadingProxies()
        .UseSqlServer(cs, o => o.UseCompatibilityLevel(sqlCompatibilityLevel))
        .ConfigureWarnings(b => b.Ignore(SqlServerEventId.SavepointsDisabledBecauseOfMARS)));
+builder.Services.AddApplicationInsightsTelemetry();
 
 #endregion
 var app = builder.Build();
@@ -116,10 +119,18 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+else
+{
+    Thread.CurrentThread.CurrentCulture = new CultureInfo("tr-TR");
+}
 app.UseSession();
 
 app.UseStaticFiles();
 
+app.UseSerilogRequestLogging(opts
+            => opts.EnrichDiagnosticContext = UnhandledExceptionMiddleware.EnrichFromRequest);
+
+app.UseMiddleware<UnhandledExceptionMiddleware>();
 
 #endregion
 // Configure the HTTP request pipeline.

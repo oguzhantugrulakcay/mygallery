@@ -50,30 +50,12 @@
                     <fieldset>
                         <div class="form-group">
                             <label>Marka<span class="text-danger">*</span></label>
-                            <select class="form-control show-tick ms select2" data-placeholder="Select">
-                                <option>Seçiniz</option>
-                                <option>BMW</option>
-                                <option>Ford</option>
-                                <option>Audi</option>
-                                <option>Renault</option>
-                                <option>Pegoute</option>
-                                <option>Fiat</option>
-                                <option>Land Rover</option>
-                                <option>Audi</option>
+                            <select id="brandId" class="form-control show-tick ms select2" data-placeholder="Select">
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Model<span class="text-danger">*</span></label>
-                            <select class="form-control show-tick ms select2" data-placeholder="Select">
-                                <option>Seçiniz</option>
-                                <option>BMW</option>
-                                <option>Ford</option>
-                                <option>Audi</option>
-                                <option>Renault</option>
-                                <option>Pegoute</option>
-                                <option>Fiat</option>
-                                <option>Land Rover</option>
-                                <option>Audi</option>
+                            <select id="modelId" class="form-control show-tick ms select2" data-placeholder="Select">
                             </select>
                         </div>
                         <div class="form-group">
@@ -248,12 +230,33 @@
     <script src="~/vendor/select2/select2.min.js"></script>
     <script>
         $(document).ready(function () {
+            mg.getBrands('#brandId', null, null);
+            mg.getModels('#modelId', $('#brandId').val(), null,null);
+
+            $(document).on('change', '#brandId', function (e) {
+                mg.getModels('#modelId', $('#brandId').val(), null, null);
+            });
+
             $('#wizard_horizontal').steps({
                 headerTag: 'h2',
                 bodyTag: 'fieldset',
                 transitionEffect: 'slideLeft',
                 onInit: function (event, currentIndex) {
                     setButtonWavesEffect(event);
+                },
+                onStepChanging: function (event, currentIndex, newIndex) {
+                    if (currentIndex == 0) {
+                        if ($('#brandId').val() == "" || $('#brandId').val() ==null) {
+                            mg.showErrorMessage("Lütfen marka seçiniz");
+                            return false;
+                        } else if ($('#modelId').val() == "" || $('#modelId').val()==null) {
+                            mg.showErrorMessage("Lütfen model seçiniz");
+                            return false;
+                        } else {
+                            return true;
+                            setButtonWavesEffect(event);
+                        }
+                    }
                 },
                 onStepChanged: function (event, currentIndex, priorIndex) {
                     setButtonWavesEffect(event);
@@ -265,7 +268,6 @@
             }
             $('.select2').select2();
             $('#carDamage').on('click', 'path', function () {
-                    // todo: Change color not working find a way to fixed it
                     var part = $(this).attr('id');
                     swal({
                         title:'',

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\oakcay\\Source\\Repos\\oguzhantugrulakcay\\mygallery\\mygallery.csproj": {}
+    "C:\\Users\\oakcay\\source\\repos\\oguzhantugrulakcay\\mygallery\\mygallery.csproj": {}
   },
   "projects": {
-    "C:\\Users\\oakcay\\Source\\Repos\\oguzhantugrulakcay\\mygallery\\mygallery.csproj": {
+    "C:\\Users\\oakcay\\source\\repos\\oguzhantugrulakcay\\mygallery\\mygallery.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\oakcay\\Source\\Repos\\oguzhantugrulakcay\\mygallery\\mygallery.csproj",
+        "projectUniqueName": "C:\\Users\\oakcay\\source\\repos\\oguzhantugrulakcay\\mygallery\\mygallery.csproj",
         "projectName": "mygallery",
-        "projectPath": "C:\\Users\\oakcay\\Source\\Repos\\oguzhantugrulakcay\\mygallery\\mygallery.csproj",
+        "projectPath": "C:\\Users\\oakcay\\source\\repos\\oguzhantugrulakcay\\mygallery\\mygallery.csproj",
         "packagesPath": "C:\\Users\\oakcay\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oakcay\\Source\\Repos\\oguzhantugrulakcay\\mygallery\\obj\\",
+        "outputPath": "C:\\Users\\oakcay\\source\\repos\\oguzhantugrulakcay\\mygallery\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -54,6 +54,10 @@
             "MailKit": {
               "target": "Package",
               "version": "[4.4.0, )"
+            },
+            "Microsoft.ApplicationInsights.AspNetCore": {
+              "target": "Package",
+              "version": "[2.21.0, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
