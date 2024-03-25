@@ -127,8 +127,8 @@ app.UseSession();
 
 app.UseStaticFiles();
 
-app.UseSerilogRequestLogging(opts
-            => opts.EnrichDiagnosticContext = UnhandledExceptionMiddleware.EnrichFromRequest);
+// app.UseSerilogRequestLogging(opts
+//             => opts.EnrichDiagnosticContext = UnhandledExceptionMiddleware.EnrichFromRequest);
 
 app.UseMiddleware<UnhandledExceptionMiddleware>();
 
