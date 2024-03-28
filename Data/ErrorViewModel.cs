@@ -1,4 +1,4 @@
-namespace mygallery.Models;
+namespace mygallery.Data;
 
 public class ErrorViewModel
 {

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Options;
 using mygallery.Context;
+using mygallery.Data;
 using mygallery.Infrastuctures;
 using mygallery.Models;
 using Serilog;

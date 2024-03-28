@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using mygallery.Context;
-using mygallery.Models;
+using mygallery.Data;
 using mygallery.Models.ViewModels;
 
 namespace mygallery.Controllers
@@ -15,6 +12,7 @@ namespace mygallery.Controllers
         protected MyGalleryContext dbContext;
         protected AppConfig appConfig;
         protected IWebHostEnvironment hostingEnvironment;
+        protected IDataProtector dataProtector;
         private string MenuKey = "";
         private string PageTitle = "";
         private string TabKey = "actions";

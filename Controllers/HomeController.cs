@@ -4,17 +4,25 @@ using mygallery.Context;
 using mygallery.Models;
 using System.IO;
 using Newtonsoft.Json;
+using mygallery.Infrastuctures;
+using Microsoft.VisualBasic;
+using mygallery.Data;
+using mygallery.Models.ViewModels;
 
 namespace mygallery.Controllers;
 [Route("[action]")]
 public class HomeController : BaseController
 {
 	private readonly ILogger<HomeController> _logger;
+	private readonly LoginHelper loginHelper;
 
 	public HomeController(ILogger<HomeController> logger, MyGalleryContext context)
 	{
 		dbContext = context;
 		_logger = logger;
+		loginHelper=new LoginHelper(
+			context,appConfig,dataProtector,"mg_co","",180
+		);
 	}
 	[HttpGet("/")]
 	public IActionResult Index()
@@ -30,9 +38,43 @@ public class HomeController : BaseController
 	}
 
 	[HttpGet]
-	public IActionResult Giris()
+	public IActionResult Giris(string returnUrl)
 	{
-		return View();
+		var cookie = loginHelper.GetCookie(HttpContext);
+		var vm=new LoginViewModel{
+			HasError=false,
+			ErrorDesc="",
+			LoginName=cookie.LoginName,
+			LoginPassword=cookie.LoginPassword,
+			RememberMe=cookie.RememberMe,
+			ReturnUrl=returnUrl
+		};
+		return View(vm);
+	}
+
+	[HttpPost]
+	public async Task<IActionResult> Giriş( [FromBody] LoginData data){
+		
+		var vm=new LoginViewModel{
+			HasError=false,
+			ErrorDesc="Lütfen kullanıcı adı ve şifre giriniz.",
+			LoginName=data.LoginName,
+			LoginPassword=data.LoginPassword,
+			RememberMe=data.RememberMe,
+			ReturnUrl=data.ReturnUrl
+		};
+
+		if (string.IsNullOrWhiteSpace(data.LoginName) || string.IsNullOrWhiteSpace(data.LoginPassword)) 
+			return View(vm);
+
+		var result=await loginHelper.LoginAsync(HttpContext,data.LoginName,data.LoginPassword,data.RememberMe);
+		if(result.Status){
+			return Redirect(string.IsNullOrWhiteSpace(data.ReturnUrl)?"/yonetim/anasayfa":data.ReturnUrl);
+		}else{
+			vm.ErrorDesc=result.Message;
+		}
+
+		return View(vm);
 	}
 
 	[HttpGet]

@@ -1,3 +1,5 @@
+using mygallery.Data;
+
 namespace mygallery.Models.ViewModels;
 
 public class LayoutViewModel
