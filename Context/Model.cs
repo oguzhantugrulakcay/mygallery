@@ -12,4 +12,6 @@ public partial class Model
     public string ModelName { get; set; } = null!;
 
     public virtual Brand Brand { get; set; } = null!;
+
+    public virtual ICollection<BuyRequest> BuyRequests { get; set; } = new List<BuyRequest>();
 }

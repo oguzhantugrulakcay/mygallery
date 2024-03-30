@@ -17,7 +17,15 @@ public partial class MyGalleryContext : DbContext
 
     public virtual DbSet<Brand> Brands { get; set; }
 
+    public virtual DbSet<BuyRequest> BuyRequests { get; set; }
+
+    public virtual DbSet<BuyRequestExtension> BuyRequestExtensions { get; set; }
+
+    public virtual DbSet<CarExtension> CarExtensions { get; set; }
+
     public virtual DbSet<Model> Models { get; set; }
+
+    public virtual DbSet<RequestDamageInfo> RequestDamageInfos { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
@@ -32,6 +40,46 @@ public partial class MyGalleryContext : DbContext
             entity.Property(e => e.BrandName).HasMaxLength(100);
         });
 
+        modelBuilder.Entity<BuyRequest>(entity =>
+        {
+            entity.HasKey(e => e.RequestId).HasName("PK_BuyRequest");
+
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.ExtraExtension).HasMaxLength(1000);
+            entity.Property(e => e.FistName).HasMaxLength(100);
+            entity.Property(e => e.FuelType).HasMaxLength(10);
+            entity.Property(e => e.GearType).HasMaxLength(10);
+            entity.Property(e => e.GsmNo).HasMaxLength(20);
+            entity.Property(e => e.LastName).HasMaxLength(100);
+
+            entity.HasOne(d => d.Model).WithMany(p => p.BuyRequests)
+                .HasForeignKey(d => d.ModelId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("BuyRequestMustHaveModel");
+        });
+
+        modelBuilder.Entity<BuyRequestExtension>(entity =>
+        {
+            entity.HasKey(e => e.RequestExtensionId).HasName("PK_BuyRequestExtension");
+
+            entity.HasOne(d => d.Extension).WithMany(p => p.BuyRequestExtensions)
+                .HasForeignKey(d => d.ExtensionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("BuyReqeustExtensionMustHaveExtension");
+
+            entity.HasOne(d => d.Request).WithMany(p => p.BuyRequestExtensions)
+                .HasForeignKey(d => d.RequestId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("BuyRequestExtensionMustHaveRequest");
+        });
+
+        modelBuilder.Entity<CarExtension>(entity =>
+        {
+            entity.HasKey(e => e.ExtensionId).HasName("PK_CarEKtension");
+
+            entity.Property(e => e.ExtensionName).HasMaxLength(50);
+        });
+
         modelBuilder.Entity<Model>(entity =>
         {
             entity.HasKey(e => e.ModelId).HasName("PK_MODEL");
@@ -42,6 +90,18 @@ public partial class MyGalleryContext : DbContext
                 .HasForeignKey(d => d.BrandId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("ModelMustHaveBrand");
+        });
+
+        modelBuilder.Entity<RequestDamageInfo>(entity =>
+        {
+            entity.HasKey(e => e.InfoId).HasName("PK_DamageInfo");
+
+            entity.Property(e => e.Back).HasColumnName("back");
+
+            entity.HasOne(d => d.Request).WithMany(p => p.RequestDamageInfos)
+                .HasForeignKey(d => d.RequestId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("DamageInfoMustHaveRequest");
         });
 
         modelBuilder.Entity<User>(entity =>
