@@ -8,6 +8,8 @@ using mygallery.Infrastuctures;
 using Microsoft.VisualBasic;
 using mygallery.Data;
 using mygallery.Models.ViewModels;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace mygallery.Controllers;
 [Route("[action]")]
@@ -15,13 +17,16 @@ public class HomeController : BaseController
 {
 	private readonly ILogger<HomeController> _logger;
 	private readonly LoginHelper loginHelper;
-
-	public HomeController(ILogger<HomeController> logger, MyGalleryContext context)
+	private readonly AppConfig appConfig;
+	private readonly IDataProtectionProvider dataProtectionProvider;
+	public HomeController(ILogger<HomeController> logger, MyGalleryContext context,IOptions<AppConfig> config,IDataProtectionProvider dataProtectionProvider)
 	{
 		dbContext = context;
 		_logger = logger;
+		appConfig=config.Value;
+		this.dataProtectionProvider=dataProtectionProvider;
 		loginHelper=new LoginHelper(
-			context,appConfig,dataProtector,"mg_co","",180
+			context,appConfig,dataProtectionProvider,"mg_co","",180
 		);
 	}
 	[HttpGet("/")]
@@ -38,6 +43,7 @@ public class HomeController : BaseController
 	}
 
 	[HttpGet]
+	[ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
 	public IActionResult Giris(string returnUrl)
 	{
 		var cookie = loginHelper.GetCookie(HttpContext);
@@ -53,28 +59,36 @@ public class HomeController : BaseController
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> Giriş( [FromBody] LoginData data){
-		
+	public async Task<IActionResult> Giris(string LoginName, string LoginPassword, string RememberMe, string ReturnUrl){
+
 		var vm=new LoginViewModel{
-			HasError=false,
+			HasError=true,
 			ErrorDesc="Lütfen kullanıcı adı ve şifre giriniz.",
-			LoginName=data.LoginName,
-			LoginPassword=data.LoginPassword,
-			RememberMe=data.RememberMe,
-			ReturnUrl=data.ReturnUrl
+			LoginName=LoginName,
+			LoginPassword=LoginPassword,
+			RememberMe=RememberMe,
+			ReturnUrl=ReturnUrl
 		};
 
-		if (string.IsNullOrWhiteSpace(data.LoginName) || string.IsNullOrWhiteSpace(data.LoginPassword)) 
+		if (string.IsNullOrWhiteSpace(LoginName) || string.IsNullOrWhiteSpace(LoginPassword)) 
 			return View(vm);
 
-		var result=await loginHelper.LoginAsync(HttpContext,data.LoginName,data.LoginPassword,data.RememberMe);
+		var result=await loginHelper.LoginAsync(HttpContext,LoginName,LoginPassword,RememberMe);
 		if(result.Status){
-			return Redirect(string.IsNullOrWhiteSpace(data.ReturnUrl)?"/yonetim/anasayfa":data.ReturnUrl);
+			var redirectUrl=string.IsNullOrWhiteSpace(ReturnUrl)?"/yonetim/anasayfa":ReturnUrl;
+			return RedirectToAction("Anasayfa","Yonetim");
 		}else{
 			vm.ErrorDesc=result.Message;
 		}
 
 		return View(vm);
+	}
+
+	[HttpGet]
+	[ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+	public IActionResult Cikis(){
+		loginHelper.Logout(HttpContext);
+		return RedirectToAction("Giris");
 	}
 
 	[HttpGet]

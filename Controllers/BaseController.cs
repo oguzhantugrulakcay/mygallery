@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using mygallery.Context;
 using mygallery.Data;
+using mygallery.Extensions;
 using mygallery.Models.ViewModels;
 
 namespace mygallery.Controllers
@@ -20,6 +21,7 @@ namespace mygallery.Controllers
 
         public void PageInit(string PageTitle, string MenuKey, string TabKey, List<Breadcrumb> Breadcrumbs)
         {
+            this.PageTitle=PageTitle;
             this.Breadcrumbs = this.Breadcrumbs ?? new List<Breadcrumb>();
             this.Breadcrumbs.AddRange(Breadcrumbs);
         }
@@ -31,10 +33,12 @@ namespace mygallery.Controllers
             if (context.Controller is Controller controller &&
                 context.HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
             {
-                // var currentUser = controller.User.GetUser<LogonUser>();
-
-                var vm = new LayoutViewModel();
-
+                 var currentUser = controller.User.GetUser<LogonUser>();
+                var vm=new LayoutViewModel();
+                if(currentUser!=null){
+                    vm.FirstName=currentUser.FirstName;
+                    vm.LastName=currentUser.LastName;
+                }
 
                 controller.ViewData["LayoutViewModel"] = vm;
             }

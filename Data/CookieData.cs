@@ -11,6 +11,6 @@ namespace mygallery.Data
 
         public string LoginPassword { get; set; }
 
-        public bool RememberMe { get; set; }
+        public string RememberMe { get; set; }
     }
 }

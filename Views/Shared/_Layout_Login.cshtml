@@ -24,7 +24,10 @@
 	<div id="wrapper">
 		@RenderBody()
 	</div>
-	<!-- END WRAPPER -->
+	 <script src="~/vendor/popperjs/popper.min.js"></script>
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="~/js/site.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

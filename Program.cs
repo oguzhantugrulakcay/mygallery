@@ -51,7 +51,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/";
+        options.LoginPath = "/giris";
         options.Cookie.Name = "MYGALLERY_AUTH";
         options.AccessDeniedPath = "/home/denied";
         options.Cookie.Path = "/";

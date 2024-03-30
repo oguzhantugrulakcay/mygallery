@@ -24,7 +24,7 @@ namespace mygallery.Infrastuctures
         private readonly int expireMinutes;
         private readonly string secretKey;
         private readonly string spName;
-        private readonly AppConfig appConfig;
+        protected AppConfig appConfig;
         private readonly MyGalleryContext dbContext;
         public LoginHelper(MyGalleryContext context, AppConfig config, IDataProtectionProvider DataProtectionProvider, string CookieKey, string SpName, int ExpireMinutes = 60)
         {
@@ -38,7 +38,7 @@ namespace mygallery.Infrastuctures
             protector = new Protector(dataProtectionProvider, secretKey);
         }
 
-        public async Task<Result> LoginAsync(HttpContext httpContext, string LoginName, string LoginPassword, bool RememberMe)
+        public async Task<Result> LoginAsync(HttpContext httpContext, string LoginName, string LoginPassword, string RememberMe)
         {
 
             if (string.IsNullOrWhiteSpace(LoginName) || string.IsNullOrWhiteSpace(LoginPassword))
@@ -55,10 +55,10 @@ namespace mygallery.Infrastuctures
 
             var claimsIdentity = new ClaimsIdentity(new List<Claim>
             {
-                new("UserData", JsonSerializer.Serialize(new{
-                    user.UserId,
-                    user.FirstName,
-                    user.LastName
+                new("UserData", JsonSerializer.Serialize(new UserData{
+                    UserId=user.UserId,
+                    FirstName=user.FirstName,
+                    LastName=user.LastName
                 }))
             }, "Cookies");
 
@@ -70,7 +70,7 @@ namespace mygallery.Infrastuctures
 
             await httpContext.SignInAsync("Cookies", new ClaimsPrincipal(claimsIdentity), properties);
 
-            if (RememberMe)
+            if (RememberMe=="true"||RememberMe=="on")
             {
                 var str = protector.Encrypt(JsonSerializer.Serialize(new CookieData
                 {
@@ -100,7 +100,7 @@ namespace mygallery.Infrastuctures
                 {
                     return new CookieData
                     {
-                        RememberMe = false,
+                        RememberMe = "false",
                         LoginName = "",
                         LoginPassword = ""
                     };
@@ -108,7 +108,7 @@ namespace mygallery.Infrastuctures
 
             return new CookieData
             {
-                RememberMe = false,
+                RememberMe = "false",
                 LoginName = "",
                 LoginPassword = ""
             };
@@ -122,12 +122,12 @@ namespace mygallery.Infrastuctures
                 : returnUrl;
         }
 
-        public async void LogoutAsync(HttpContext httpContext)
+        public async void Logout(HttpContext httpContext)
         {
             await httpContext.SignOutAsync("Cookies");
         }
 
-        public static async void Logout(HttpContext httpContext)
+        public static async void LogoutAsync(HttpContext httpContext)
         {
             await httpContext.SignOutAsync("Cookies");
         }

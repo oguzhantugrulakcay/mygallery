@@ -11,7 +11,7 @@ namespace mygallery.Models.ViewModels
         public bool HasError { get; set; }
         public string LoginName { get; set; }
         public string LoginPassword { get; set; }
-        public bool RememberMe { get; set; }
+        public string RememberMe { get; set; }
         public string ReturnUrl { get; set; }
     }
 }

@@ -12921,16 +12921,8 @@
       "PackagePath": "staticwebassets/vendor/flot-charts/jquery.js"
     },
     {
-      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/font-awesome/css/font-awesome.css",
-      "PackagePath": "staticwebassets/vendor/font-awesome/css/font-awesome.css"
-    },
-    {
-      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/font-awesome/css/font-awesome.min.css",
-      "PackagePath": "staticwebassets/vendor/font-awesome/css/font-awesome.min.css"
-    },
-    {
-      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/font-awesome/css/font-awesome.scss",
-      "PackagePath": "staticwebassets/vendor/font-awesome/css/font-awesome.scss"
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/font-awesome/css/all.css",
+      "PackagePath": "staticwebassets/vendor/font-awesome/css/all.css"
     },
     {
       "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/font-awesome/font-awesome.zip",
@@ -12959,6 +12951,38 @@
     {
       "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/font-awesome/fonts/fontawesome-webfont.woff2",
       "PackagePath": "staticwebassets/vendor/font-awesome/fonts/fontawesome-webfont.woff2"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/font-awesome/webfonts/fa-brands-400.ttf",
+      "PackagePath": "staticwebassets/vendor/font-awesome/webfonts/fa-brands-400.ttf"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/font-awesome/webfonts/fa-brands-400.woff2",
+      "PackagePath": "staticwebassets/vendor/font-awesome/webfonts/fa-brands-400.woff2"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/font-awesome/webfonts/fa-regular-400.ttf",
+      "PackagePath": "staticwebassets/vendor/font-awesome/webfonts/fa-regular-400.ttf"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/font-awesome/webfonts/fa-regular-400.woff2",
+      "PackagePath": "staticwebassets/vendor/font-awesome/webfonts/fa-regular-400.woff2"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/font-awesome/webfonts/fa-solid-900.ttf",
+      "PackagePath": "staticwebassets/vendor/font-awesome/webfonts/fa-solid-900.ttf"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/font-awesome/webfonts/fa-solid-900.woff2",
+      "PackagePath": "staticwebassets/vendor/font-awesome/webfonts/fa-solid-900.woff2"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/font-awesome/webfonts/fa-v4compatibility.ttf",
+      "PackagePath": "staticwebassets/vendor/font-awesome/webfonts/fa-v4compatibility.ttf"
+    },
+    {
+      "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/font-awesome/webfonts/fa-v4compatibility.woff2",
+      "PackagePath": "staticwebassets/vendor/font-awesome/webfonts/fa-v4compatibility.woff2"
     },
     {
       "Id": "/Volumes/OguzhanSSD/Projects/mygallery/wwwroot/vendor/fullcalendar/fullcalendar.css",

@@ -7,7 +7,7 @@ namespace mygallery.Infrastuctures
         private readonly IDataProtector protector;
         public Protector(IDataProtectionProvider dataProtectionProvider, string SecretKey)
         {
-            protector = dataProtectionProvider.CreateProtector(SecretKey);
+             protector = dataProtectionProvider.CreateProtector(SecretKey);
         }
 
         public string Encrypt(string data)

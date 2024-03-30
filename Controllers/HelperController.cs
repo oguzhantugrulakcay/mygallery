@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using mygallery.Context;
-using mygallery.Models;
+using mygallery.Data;
 
 namespace mygallery.Controllers
 {
