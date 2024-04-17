@@ -10265,6 +10265,13 @@
      cursor: pointer
  }
 
+ .feeds_widget li.selected {
+    box-shadow: 0 2px 5px rgba(65, 0, 147, 0.14), 0 2px 10px rgba(65, 0, 147, 0.1);
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border-color: #410093;
+}
+
  .feeds_widget li .feeds-left {
      float: left;
      width: 33px;

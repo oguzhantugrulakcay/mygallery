@@ -1,0 +1,11 @@
+@model mygallery.Models.ViewModels._DefinitionsModelsViewModel
+@foreach (var data in Model.Models)
+{
+    <li data-modelId="@data.ModelId" class="brand">
+
+    <div class="feeds-left"><i class="fas fa-car"></i></div>
+    <div class="feeds-body">
+        <h4 class="title">@data.ModelName</h4>
+    </div>
+</li>
+}

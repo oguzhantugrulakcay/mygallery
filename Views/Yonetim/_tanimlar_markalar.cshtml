@@ -1,0 +1,15 @@
+@model mygallery.Models.ViewModels._DefinitionsBrandsViewModel;
+@{
+    Layout="";
+}
+
+@foreach (var data in Model.Brands)
+{
+    <li data-brandId="@data.BrandId" class="brand @(data.BrandId==Model.SelectedBrandId?"selected":"")">
+
+    <div class="feeds-left"><i class="fas fa-car"></i></div>
+    <div class="feeds-body">
+        <h4 class="title">@data.BrandName</h4>
+    </div>
+</li>
+}

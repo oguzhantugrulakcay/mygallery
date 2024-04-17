@@ -2,6 +2,7 @@
     ViewData["Title"] = "Satınalma";
     Layout = "~/Views/Shared/_Layout_Witout_SiteBar.cshtml";
 }
+@model mygallery.Models.ViewModels.SatinAlmaViewModel
 @section Css {
     <link rel="stylesheet" href="~/vendor/select2/select2.css" />
 }
@@ -190,7 +191,10 @@
                     <fieldset>
                         <div class="row">
                             <div class="col-sm-6">
-                                <input type="checkbox"><span>Gece görüşü</span>
+                                @foreach(var extension in Model.Extensions){
+                                <input type="checkbox" id="extension-@extension.ExtensionId"><span> @extension.ExtensionName</span>
+                                <br>
+                                }
                             </div>
                             <div class="col-sm-6">
                                 <textarea id="infos" class="form-control" rows="6" placeholder="Belirtmek istediğiniz araç özelliklerini buraya ekleyiniz."></textarea>

@@ -37,9 +37,15 @@ public class HomeController : BaseController
 	[HttpGet]
 	public IActionResult SatinAlma()
 	{
-		var cars = dbContext
-			.Brands.ToList();
-		return View();
+		var vm=new SatinAlmaViewModel{
+			Extensions=dbContext
+			.CarExtensions
+			.Select(e=>new SatinAlmaViewModel.Extension{
+				ExtensionId=e.ExtensionId,
+				ExtensionName=e.ExtensionName
+			}).ToList()
+		};
+		return View(vm);
 	}
 
 	[HttpGet]
@@ -94,6 +100,7 @@ public class HomeController : BaseController
 	[HttpGet]
 	public IActionResult Satis()
 	{
+
 		return View();
 	}
 
