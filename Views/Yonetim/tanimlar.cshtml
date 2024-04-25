@@ -1,6 +1,6 @@
 @model mygallery.Models.ViewModels.DefinitionsViewModel
 @{
-     Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row">
     <div class="col-sm-12 col-md-4">
@@ -13,12 +13,12 @@
             </div>
             <div class="body h-300p">
                 <ul class="list-unstyled feeds_widget brands">
-                    @await Html.PartialAsync("_tanimlar_markalar",@Model.BrandsView)
+                    @await Html.PartialAsync("_tanimlar_markalar", @Model.BrandsView)
                 </ul>
             </div>
         </div>
     </div>
-     <div class="col-sm-12 col-md-4">
+    <div class="col-sm-12 col-md-4">
         <div class="card">
             <div class="header">
                 <div class="d-flex justify-content-between">
@@ -28,25 +28,76 @@
             </div>
             <div class="body h-300p">
                 <ul class="list-unstyled feeds_widget models">
-                    @await Html.PartialAsync("_tanimlar_modeller",@Model.ModelsView)
+                    @await Html.PartialAsync("_tanimlar_modeller", @Model.ModelsView)
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-4">
+        <div class="card">
+            <div class="header">
+                <div class="d-flex justify-content-between">
+                    <h5>Özellikler</h5>
+                    <a href="javascript:void(0)" class="addExtension"><i class="fas fa-plus"></i></a>
+                </div>
+            </div>
+            <div class="body h-300p">
+                <ul class="list-unstyled feeds_widget extensions">
+                    @await Html.PartialAsync("_tanimlar_ozellikler", @Model.ExtensionsView)
                 </ul>
             </div>
         </div>
     </div>
 </div>
 
-@section scripts{
+@section scripts {
     <script>
-        $(document).ready(function(){
-            var selectedBrandId=@Model.BrandsView.SelectedBrandId;
-            $('.brand').click(function(e){
+        $(document).ready(function () {
+            var selectedBrandId = 0;
+            $('.brand').click(function (e) {
                 $('.brands').children('.selected').removeClass('selected');
                 $(this).closest('li').addClass('selected');
-                selectedBrandId=$(this).closest('li').data('brandId');
-                mg.getView('/yonetim/_tanimlar_modeller',{selectedBrandId},function(view){
+                selectedBrandId = $(this).closest('li').data('brandId');
+                mg.getView('/yonetim/_tanimlar_modeller', { Id: selectedBrandId }, function (view) {
                     $('.models').html(view);
                 })
             });
+            $(document).on("click", ".addBrand", function (e) {
+                debugger;
+                swal({
+                    content: {
+                        element: "input",
+                        attributes: {
+                            placeholder: "Marka adını giriniz...",
+                            type: "text",
+                        },
+                    },
+                }).then((value) => {
+                    console.log(value)
+                });
+            });
+
+            $(document).on('click', '.removeBrand', function (e) {
+                var brandId = $(this).closest('li').data('brandId');
+                swal({
+                    title: 'Uyarı',
+                    text: 'Firma ve firmaya bağlı olan modeller tanım yok ise silinecektir. Onaylıyor musunuz?',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true
+                }).then((value) => {
+                    if (value) {
+                        mg.showProgress();
+                        mg.postJsonData('/yonetim/json_delete_brand', { Id: brandId }, function (result) {
+                            if (result.Status) {
+                                mg.getView('/yonetim/_tanimlar_markalar', null, function (view) {
+                                    $('.brands').html(view);
+                                })
+                            }
+                        })
+                    }
+                })
+            })
         });
     </script>
 }

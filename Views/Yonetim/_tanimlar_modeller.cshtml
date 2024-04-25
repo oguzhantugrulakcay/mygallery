@@ -1,11 +1,19 @@
 @model mygallery.Models.ViewModels._DefinitionsModelsViewModel
+@{
+    Layout="";
+}
 @foreach (var data in Model.Models)
 {
     <li data-modelId="@data.ModelId" class="brand">
 
     <div class="feeds-left"><i class="fas fa-car"></i></div>
     <div class="feeds-body">
-        <h4 class="title">@data.ModelName</h4>
+        <h4 class="title">@data.ModelName
+            <small class="float-right">
+                <a href="javascript:void(0)" class="editModel"><i class="fas fa-edit"></i></a>
+                <a href="javascript:void(0)" class="removeModel text-danger"><i class="fas fa-trash"></i></a>
+            </small>
+        </h4>
     </div>
 </li>
 }

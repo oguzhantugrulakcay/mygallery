@@ -8,5 +8,6 @@ namespace mygallery.Models.ViewModels
         }
         public _DefinitionsBrandsViewModel BrandsView { get; set; }
         public _DefinitionsModelsViewModel ModelsView {get;set;}
+        public _DefinitionsExtensionsViewModel ExtensionsView{ get; set; }
     }
 }

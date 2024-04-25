@@ -65,7 +65,15 @@ namespace mygallery.Controllers
                         ModelId=m.ModelId,
                         ModelName=m.ModelName
                     })
-                    .ToList()
+                    .ToList()                    
+                },
+                ExtensionsView=new _DefinitionsExtensionsViewModel{
+                    Extensions=dbContext
+                    .CarExtensions
+                    .Select(e=>new _DefinitionsExtensionsViewModel.Extension{
+                        ExtensionId=e.ExtensionId,
+                        ExtensionName=e.ExtensionName
+                    }).ToList()
                 }
             };
             return View(vm);
@@ -84,21 +92,77 @@ namespace mygallery.Controllers
                     .ToList(),
                     SelectedBrandId=SelectedId??1
             };
-            return View(vm);
+            return View("_tanimlar_markalar",vm);
         }
 
         [HttpPost]
-        public IActionResult _tanimlar_modeller([FromBody] int? BrandId){
+        public JsonResult json_upsert_brand([FromBody] NullableIntStringParam data){
+            
+            if(string.IsNullOrWhiteSpace(data.Text))
+                return Json(new Result(false,"Lütfen marka adı giriniz!"));
+
+            var hasName=dbContext
+            .Brands
+            .Where(b=>b.BrandName.ToLower()==data.Text.ToLower())
+            .Any();
+
+            if(hasName)
+                return Json(new Result(false,"Marka adı hali hazırda kayıtlı!"));
+            
+            if(data.Id.HasValue){
+                var brand=dbContext
+                .Brands
+                .FirstOrDefault(b=>b.BrandId==data.Id);
+
+
+                brand.BrandName=data.Text;
+            }else{
+                var justBrand=new Brand{
+                    BrandName=data.Text
+                };
+                dbContext.Brands.Add(justBrand);
+            }
+            dbContext.SaveChanges();
+            return Json(new Result(true,"İşlem gerçekleştirildi"));
+        }
+
+        [HttpPost]
+        public JsonResult json_delete_brand([FromBody] IntParam data){
+            var brand=dbContext
+            .Brands
+            .FirstOrDefault(b=>b.BrandId==data.Id);
+
+            if(brand==null)
+                return Json(new Result(false,"Marka bulunamadı, lütfen kontrol ediniz."));
+
+            var models=brand.Models.Select(m=>m.ModelId).ToList();
+
+            var hasRequest=dbContext
+            .BuyRequests
+            .Where(c=>models.Contains(c.ModelId))
+            .Any();
+
+            if(hasRequest)
+                return Json(new Result(false,"Bu markaya ait talepler olduğundan silinemez."));
+
+            dbContext.Models.RemoveRange(brand.Models);
+            dbContext.Brands.Remove(brand);
+            dbContext.SaveChanges();
+            return Json(new Result(true,"Marka silindi."));
+        }
+
+        [HttpPost]
+        public IActionResult _tanimlar_modeller([FromBody] IntParam data){
             var vm=new _DefinitionsModelsViewModel{
                 Models=dbContext
                 .Models
-                .Where(m=>m.BrandId==BrandId||BrandId==null)
+                .Where(m=>m.BrandId==data.Id||data.Id==0)
                 .Select(m=>new _DefinitionsModelsViewModel.Model{
                     ModelId=m.ModelId,
                     ModelName=m.ModelName
                 }).ToList()
             };
-            return View(vm);
+            return View("_tanimlar_modeller",vm);
         }
 
 
