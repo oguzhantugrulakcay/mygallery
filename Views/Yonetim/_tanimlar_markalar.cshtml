@@ -1,20 +1,21 @@
 @model mygallery.Models.ViewModels._DefinitionsBrandsViewModel;
 @{
-    Layout="";
+    Layout = "";
 }
 
 @foreach (var data in Model.Brands)
 {
-    <li data-brandId="@data.BrandId" class="brand @(data.BrandId==Model.SelectedBrandId?"selected":"")">
-
-    <div class="feeds-left"><i class="fas fa-car"></i></div>
-    <div class="feeds-body">
-        <h4 class="title">@data.BrandName
-            <small class="float-right">
+    <li data-brandId="@data.BrandId" class="brand">
+    <div class="fancy-radio">
+        <label>
+            <input name="gender" value="@data.BrandId" type="radio"
+                @(data.BrandId==Model.SelectedBrandId?"checked":"")>
+                <span><i></i>@data.BrandName</span>
+        </label>
+        <div class="float-right">
                 <a href="javascript:void(0)" class="editBrand"><i class="fas fa-edit"></i></a>
                 <a href="javascript:void(0)" class="removeBrand text-danger"><i class="fas fa-trash"></i></a>
-            </small>
-        </h4>
+            </div>
     </div>
 </li>
 }

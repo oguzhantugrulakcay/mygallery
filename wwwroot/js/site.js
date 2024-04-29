@@ -5,53 +5,29 @@
          * @param {string} msg Gösterilecek mesaj
          */
         showMessage: function (msg, completed) {
-            if (completed != null) {
-                swal(msg).then(() => {
-                    completed()
-                });
-            } else {
                 swal(msg);
-            }
         },
         /**
          * Bir bilgi mesajı gösterilecek ise çağırılacak fonksiyondur. Başlık olarak "Bilgi" yazar.
          * @param {string} msg Gösterilecek mesaj
          */
-        showInformationMessage: function (msg, completed) {
-            debugger;
-            if (completed != null) {
-                swal('Bilgi', msg, 'info').then(() => {
-                    completed();
-                });
-            } else {
+        showInformationMessage: function (msg) {
+            
                 swal('Bilgi', msg, 'info');
-            }
         },
         /**
          * Başarılı bir işlem mesajı gösterilecek ise çağırılacak fonksiyondur. Başlık olarak "İşlem Başarılı" yazar
          * @param {any} msg Gösterilecek mesaj
          */
-        showSuccessMessage: function (msg, completed) {
-            if(completed!=null){
-                swal('İşlem Başarılı', msg, 'success').then(()=>{
-                    completed();
-                });
-            }else{
+        showSuccessMessage: function (msg) {
                 swal('İşlem Başarılı', msg, 'success');
-            }
         },
         /**
          * Başarısız bir işlem mesajı gösterilecek ise çağırılacak fonksiyondur. Başlık olarak "İşlem Başarısız" yazar
          * @param {any} msg Gösterilecek mesaj
          */
         showErrorMessage: function (msg, completed) {
-            if(completed!=null){
-            swal('İşlem Başarısız', msg, 'error').then(()=>{
-                completed();
-            });
-            }else{
                 swal('İşlem Başarısız', msg, 'error');
-            }
         },
         showProgress: function () {
             $("div#spinner").fadeIn("fast");

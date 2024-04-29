@@ -165,6 +165,74 @@ namespace mygallery.Controllers
             return View("_tanimlar_modeller",vm);
         }
 
+        [HttpPost]
+        public JsonResult json_upsert_model([FromBody] ModelUpsertData data){
+            if(string.IsNullOrWhiteSpace(data.ModelName)){
+                return Json(new Result(false,"Model adı boş bırakılamaz lütfen kontrol ediniz."));
+            }
+
+            if(data.BrandId==0){
+                return Json(new Result(false,"Lütfen marka seçiniz!"));
+            }
+
+            var hasModalName=dbContext
+                .Models
+                .Any(m=>m.ModelName==data.ModelName && m.BrandId==data.BrandId);
+
+                if(hasModalName){
+                    return Json(new Result(false,"Model zaten mevcut, lütfen kontrol ediniz."));
+                }
+
+            if(!data.ModelId.HasValue){
+                var hasBrand=dbContext
+                .Brands
+                .Any(m=>m.BrandId==data.BrandId);
+                if(!hasBrand){
+                    return Json(new Result(false,"Marka bulunamadı, lütfen kontrol ediniz."));
+                }
+                
+
+                var justModel=new Model{
+                    BrandId=data.BrandId,
+                    ModelName=data.ModelName
+                };
+                dbContext.Models.Add(justModel);
+                dbContext.SaveChanges();
+                return Json(new Result(true,"Model eklendi."));
+            }else{
+                var model=dbContext
+                    .Models
+                    .FirstOrDefault(m=>m.ModelId==data.ModelId);
+                
+                if(model==null){
+                    return Json(new Result(false,"Model bulunamadı, lütfen kontrol ediniz."));
+                }
+
+                model.ModelName=data.ModelName;
+                dbContext.SaveChanges();
+                return Json(new Result(true,"Model adı güncellendi"));
+            }
+        }
+
+        [HttpPost]
+        public JsonResult json_delete_model([FromBody] IntParam data){
+            var model=dbContext
+            .Models
+            .FirstOrDefault(m=>m.ModelId == data.Id);
+
+            if(model==null){
+                return Json(new Result(false,"Model bulunamadı lütfen kontrol ediniz."));
+            }
+            if(model.BuyRequests.Count()>0){
+                return Json(new Result(false,"Bu modele ait talep bulunduğundan silinemez!"));
+            }
+
+            dbContext.Models.Remove(model);
+            dbContext.SaveChanges();
+
+            return Json(new Result(true,"Model silindi."));
+        }
+
 
         #endregion
     }

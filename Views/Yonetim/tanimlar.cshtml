@@ -54,16 +54,16 @@
     <script>
         $(document).ready(function () {
             var selectedBrandId = 0;
-            $('.brand').click(function (e) {
-                $('.brands').children('.selected').removeClass('selected');
-                $(this).closest('li').addClass('selected');
-                selectedBrandId = $(this).closest('li').data('brandId');
+            $(document).on('click', '.brand input', function (e) {
+                selectedBrandId = $(this).val();
+                console.log(selectedBrandId);
                 mg.getView('/yonetim/_tanimlar_modeller', { Id: selectedBrandId }, function (view) {
                     $('.models').html(view);
-                })
+                });
             });
+
+
             $(document).on("click", ".addBrand", function (e) {
-                debugger;
                 swal({
                     content: {
                         element: "input",
@@ -73,31 +73,149 @@
                         },
                     },
                 }).then((value) => {
-                    console.log(value)
+                    mg.postJsonData('/yonetim/json_upsert_brand', { Text: value }, function (result) {
+                        if (result.status) {
+                            mg.showSuccessMessage(result.message);
+                            mg.getView('/yonetim/_tanimlar_markalar', null, function (view) {
+                                $('.brands').html(view);
+                            });
+                        }
+                    });
+                });
+            });
+
+            $(document).on("click", ".editBrand", function (e) {
+                var brandId = $(this).closest('li').data('brandid');
+                swal({
+                    content: {
+                        element: "input",
+                        attributes: {
+                            placeholder: "Marka adını giriniz...",
+                            type: "text",
+                        },
+                    },
+                }).then((value) => {
+                    mg.postJsonData('/yonetim/json_upsert_brand', { Id:brandId,Text: value }, function (result) {
+                        if (result.status) {
+                            mg.showSuccessMessage(result.message);
+                            mg.getView('/yonetim/_tanimlar_markalar', null, function (view) {
+                                $('.brands').html(view);
+                            });
+                        }
+                    });
                 });
             });
 
             $(document).on('click', '.removeBrand', function (e) {
-                var brandId = $(this).closest('li').data('brandId');
+                var brandId = $(this).closest('li').data('brandid');
                 swal({
-                    title: 'Uyarı',
-                    text: 'Firma ve firmaya bağlı olan modeller tanım yok ise silinecektir. Onaylıyor musunuz?',
-                    icon: 'warning',
+                    title: "Uyarı!!!",
+                    text: "Firma ve firmaya bağlı olan modeller tanım yok ise silinecektir. Onaylıyor musunuz?",
+                    icon: "warning",
                     buttons: true,
-                    dangerMode: true
-                }).then((value) => {
-                    if (value) {
-                        mg.showProgress();
-                        mg.postJsonData('/yonetim/json_delete_brand', { Id: brandId }, function (result) {
-                            if (result.Status) {
-                                mg.getView('/yonetim/_tanimlar_markalar', null, function (view) {
-                                    $('.brands').html(view);
-                                })
-                            }
-                        })
-                    }
+                    dangerMode: true,
                 })
-            })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            mg.postJsonData('/yonetim/json_delete_brand', { Id: brandId }, function (result) {
+                                if (result.status) {
+                                    mg.showSuccessMessage(result.message)
+                                    mg.getView('/yonetim/_tanimlar_markalar', null, function (view) {
+                                        $('.brands').html(view);
+                                    })
+                                } else {
+                                    mg.showErrorMessage(result.message, null);
+                                }
+                            })
+
+                        }
+                    });
+            });
+
+            $(document).on('click', '.addModel', function () {
+                swal({
+                    content: {
+                        element: "input",
+                        attributes: {
+                            placeholder: "Model adını giriniz...",
+                            type: "text",
+                        },
+                    },
+                }).then((value) => {
+                    var modelName=value;
+                    var data = { 
+                        BrandId: selectedBrandId,
+                        ModelId: null ,
+                        ModelName: modelName
+                          };
+                    mg.postJsonData('/yonetim/json_upsert_model', data, function (result) {
+                        if (result.status) {
+                            mg.showSuccessMessage(result.message);
+                            mg.getView('/yonetim/_tanimlar_modeller', { Id: selectedBrandId }, function (view) {
+                                $('.models').html(view);
+                            });
+                        } else {
+                            mg.showErrorMessage(result.message);
+                        }
+                    });
+                });
+            });
+
+            $(document).on('click', '.removeModel', function (e) {
+                var modelId = $(this).closest('li').data('modelid');
+                swal({
+                    title: "Uyarı!!!",
+                    text: "Model silinecektir. Onaylıyor musunuz?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            mg.postJsonData('/yonetim/json_delete_model', { Id: modelId }, function (result) {
+                                if (result.status) {
+                                    mg.showSuccessMessage(result.message)
+                                    mg.getView('/yonetim/_tanimlar_modeller', { Id: selectedBrandId }, function (view) {
+                                        $('.models').html(view);
+                                    })
+                                } else {
+                                    mg.showErrorMessage(result.message, null);
+                                }
+                            })
+
+                        }
+                    });
+            });
+
+            $(document).on("click", ".editModel", function (e) {
+                
+                swal({
+                    content: {
+                        element: "input",
+                        attributes: {
+                            placeholder: "Marka adını giriniz...",
+                            type: "text",
+                        },
+                    },
+                }).then((value) => {
+                    var data = { 
+                        BrandId: selectedBrandId,
+                        ModelId: $(this).closest('li').data('modelid'),
+                        ModelName: value
+                          };
+                    mg.postJsonData('/yonetim/json_upsert_model', data, function (result) {
+                        if (result.status) {
+                            mg.showSuccessMessage(result.message);
+                            mg.getView('/yonetim/_tanimlar_modeller', { Id: selectedBrandId }, function (view) {
+                                $('.models').html(view);
+                            });
+                        } else {
+                            mg.showErrorMessage(result.message);
+                        }
+                    });
+                });
+            });
+
         });
     </script>
 }
