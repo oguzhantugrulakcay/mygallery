@@ -95,7 +95,7 @@
                         },
                     },
                 }).then((value) => {
-                    mg.postJsonData('/yonetim/json_upsert_brand', { Id:brandId,Text: value }, function (result) {
+                    mg.postJsonData('/yonetim/json_upsert_brand', { Id: brandId, Text: value }, function (result) {
                         if (result.status) {
                             mg.showSuccessMessage(result.message);
                             mg.getView('/yonetim/_tanimlar_markalar', null, function (view) {
@@ -142,12 +142,12 @@
                         },
                     },
                 }).then((value) => {
-                    var modelName=value;
-                    var data = { 
+                    var modelName = value;
+                    var data = {
                         BrandId: selectedBrandId,
-                        ModelId: null ,
+                        ModelId: null,
                         ModelName: modelName
-                          };
+                    };
                     mg.postJsonData('/yonetim/json_upsert_model', data, function (result) {
                         if (result.status) {
                             mg.showSuccessMessage(result.message);
@@ -188,7 +188,7 @@
             });
 
             $(document).on("click", ".editModel", function (e) {
-                
+
                 swal({
                     content: {
                         element: "input",
@@ -198,11 +198,11 @@
                         },
                     },
                 }).then((value) => {
-                    var data = { 
+                    var data = {
                         BrandId: selectedBrandId,
                         ModelId: $(this).closest('li').data('modelid'),
                         ModelName: value
-                          };
+                    };
                     mg.postJsonData('/yonetim/json_upsert_model', data, function (result) {
                         if (result.status) {
                             mg.showSuccessMessage(result.message);
@@ -214,6 +214,87 @@
                         }
                     });
                 });
+            });
+
+            $(document).on('click', '.addExtension', function (e) {
+                swal({
+                    content: {
+                        element: "input",
+                        attributes: {
+                            placeholder: "Özellik giriniz...",
+                            type: "text",
+                        },
+                    },
+                }).then((value) => {
+                    var data = {
+                        Id: null,
+                        Text: value
+                    };
+                    mg.postJsonData('/yonetim/json_upsert_extension', data, function (result) {
+                        if (result.status) {
+                            mg.showSuccessMessage(result.message);
+                            mg.getView('/yonetim/_tanimlar_ozellikler', null, function (view) {
+                                $('.extensions').html(view);
+                            });
+                        } else {
+                            mg.showErrorMessage(result.message);
+                        }
+                    });
+                });
+            });
+
+            $(document).on('click', '.editExtension', function (e) {
+                var id = $(this).closest('li').data('extensionid')
+                swal({
+                    content: {
+                        element: "input",
+                        attributes: {
+                            placeholder: "Özellik giriniz...",
+                            type: "text",
+                        },
+                    },
+                }).then((value) => {
+                    var data = {
+                        Id: id,
+                        Text: value
+                    };
+                    mg.postJsonData('/yonetim/json_upsert_extension', data, function (result) {
+                        if (result.status) {
+                            mg.showSuccessMessage(result.message);
+                            mg.getView('/yonetim/_tanimlar_ozellikler', null, function (view) {
+                                $('.extensions').html(view);
+                            });
+                        } else {
+                            mg.showErrorMessage(result.message);
+                        }
+                    });
+                });
+            });
+
+            $(document).on('click', '.removeExtension', function (e) {
+                var id = $(this).closest('li').data('extensionid')
+                swal({
+                    title: "Uyarı!!!",
+                    text: "Özellik silinecektir. Onaylıyor musunuz?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            mg.postJsonData('/yonetim/json_delete_extension', { Id: id }, function (result) {
+                                if (result.status) {
+                                    mg.showSuccessMessage(result.message)
+                                    mg.getView('/yonetim/_tanimlar_ozellikler', null, function (view) {
+                                        $('.extensions').html(view);
+                                    });
+                                } else {
+                                    mg.showErrorMessage(result.message, null);
+                                }
+                            })
+
+                        }
+                    });
             });
 
         });

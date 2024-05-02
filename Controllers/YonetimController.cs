@@ -233,6 +233,72 @@ namespace mygallery.Controllers
             return Json(new Result(true,"Model silindi."));
         }
 
+        [HttpPost]
+        public IActionResult _tanimlar_ozellikler(){
+            var vm=new _DefinitionsExtensionsViewModel{
+                Extensions=dbContext
+                .CarExtensions
+                .Select(e=>new _DefinitionsExtensionsViewModel.Extension{
+                    ExtensionId=e.ExtensionId,
+                    ExtensionName=e.ExtensionName
+                }).ToList()
+            };
+            return View("_tanimlar_ozellikler",vm);
+        }
+
+        [HttpPost]
+        public JsonResult json_upsert_extension([FromBody] NullableIntStringParam data){
+            if(string.IsNullOrWhiteSpace(data.Text)){
+                    return Json(new Result(false,"Lütfen özellik giriniz."));
+            }
+
+            var hasExtension=dbContext
+            .CarExtensions
+            .Any(e=>e.ExtensionName.ToLower()==data.Text.ToLower());
+
+            if(hasExtension){
+                return Json(new Result(false,"Bu özellik zaten mevcut, lütfen kontrol ediniz."));
+            }
+
+            if(data.Id.HasValue){
+                var extension=dbContext
+                .CarExtensions
+                .FirstOrDefault(e=>e.ExtensionId==data.Id);
+                
+                if(extension==null){
+                    return Json(new Result(false,"Özellik bulunamadı, lütfen kontrol ediniz."));
+                }   
+
+                extension.ExtensionName=data.Text;
+                dbContext.SaveChanges();
+                return Json(new Result(true,"Özellik güncellendi."));
+            }else{
+                var justExtension=new CarExtension{
+                    ExtensionName=data.Text,
+                };
+                dbContext.CarExtensions.Add(justExtension);
+                dbContext.SaveChanges();
+                return Json(new Result(true,"Özellik eklendi"));
+            }
+        }
+
+
+        [HttpPost]
+        public JsonResult json_delete_extension([FromBody] IntParam data){
+            var extension=dbContext
+            .CarExtensions
+            .FirstOrDefault(e=>e.ExtensionId==data.Id);
+
+            if(extension==null)
+            {
+                return Json(new Result(false,"Özellik bulunamadı lütfen kontrol ediniz."));
+            }
+            dbContext.BuyRequestExtensions.RemoveRange(extension.BuyRequestExtensions);
+            dbContext.CarExtensions.Remove(extension);
+            dbContext.SaveChanges();
+            return Json(new Result(true,"Özellik silindi"));
+        }     
+
 
         #endregion
     }
