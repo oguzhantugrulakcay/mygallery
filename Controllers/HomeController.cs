@@ -34,6 +34,7 @@ public class HomeController : BaseController
 	{
 		return View();
 	}
+	#region SatimAlma
 	[HttpGet]
 	public IActionResult SatinAlma()
 	{
@@ -48,6 +49,32 @@ public class HomeController : BaseController
 		return View(vm);
 	}
 
+	[HttpPost]
+	public JsonResult json_send_request([FromBody] CustomerBuyRequestData data){
+		var justRequest=new BuyRequest{
+				FistName=data.FirstName,
+				LastName=data.LastName,
+				CreatedAt=DateTime.Now,
+				ExtraExtension=data.Infos,
+				FuelType=data.FuelType,
+				GearType=data.GearType,
+				GsmNo=data.PhoneNo,
+				ModelId=data.ModelId,
+				Year=data.Year,
+
+		};
+		
+		foreach(var info in data.CarInfo){
+
+		}
+
+
+		return Json(new Result(true,"Talebiniz alınmıştır. En kısa sürede size dönüş yapıyor olacağız."));
+	}
+
+
+	
+#endregion
 	[HttpGet]
 	[ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
 	public IActionResult Giris(string returnUrl)

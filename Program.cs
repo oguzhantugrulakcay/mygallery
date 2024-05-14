@@ -123,6 +123,7 @@ if (!app.Environment.IsDevelopment())
 else
 {
     Thread.CurrentThread.CurrentCulture = new CultureInfo("tr-TR");
+    app.UseHsts();
 }
 app.UseSession();
 

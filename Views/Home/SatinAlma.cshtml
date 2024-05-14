@@ -61,8 +61,8 @@
                         </div>
                         <div class="form-group">
                             <label>Yıl<span class="text-danger">*</span></label>
-                            <select class="form-control show-tick ms select2" data-placeholder="Select">
-                                <option>Seçiniz</option>
+                            <select id="year" class="form-control show-tick ms select2" data-placeholder="Select">
+                                <option value="">Seçiniz</option>
                                 @for (int i = DateTime.Now.Year; i >= 2010; i--)
                                 {
                                     <option>@i</option>
@@ -71,16 +71,16 @@
                         </div>
                         <div class="form-group">
                             <label>Vites Tipi<span class="text-danger">*</span></label>
-                            <select class="form-control show-tick ms select2" data-placeholder="Select">
-                                <option>Seçiniz</option>
+                            <select id="gearType" class="form-control show-tick ms select2" data-placeholder="Select">
+                                <option value="">Seçiniz</option>
                                 <option>Manuel</option>
                                 <option>Otomatik</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Yakıt Tipi<span class="text-danger">*</span></label>
-                            <select class="form-control show-tick ms select2" data-placeholder="Select">
-                                <option>Seçiniz</option>
+                            <select id="fuelType" class="form-control show-tick ms select2" data-placeholder="Select">
+                                <option value="">Seçiniz</option>
                                 <option>Benzin</option>
                                 <option>Dizel</option>
                                 <option>Elektirik</option>
@@ -151,28 +151,28 @@
                                               sodipodi:nodetypes="cscscscsc" />
                                         <path style="fill:#000000;fill-opacity:0"
                                               d="m 189.9486,103.18318 0.0995,63.38253 c 0,0 15.19058,-0.96185 22.83562,-0.94527 7.64504,0.0166 23.03462,1.04477 23.03462,1.04477 l 0.19901,-63.28304 c 0,0 -15.38958,1.02819 -23.08438,0.99502 -7.69479,-0.0332 -23.08437,-1.19401 -23.08437,-1.19401 z"
-                                              id="path9"
+                                              id="tavan"
                                               sodipodi:nodetypes="cczcczc" />
                                         <path style="fill:#000000;fill-opacity:0"
                                               d="m 117.92046,86.540673 c 0,0 -27.053425,1.880421 -36.892985,2.644471 -13.060508,1.01416 -22.067244,2.843475 -22.067244,2.843475 0,0 -10.741363,7.973941 -10.764815,42.637111 -0.02345,34.66318 10.483382,43.05927 10.483382,43.05927 0,0 7.22345,2.25146 18.785659,3.16612 9.89172,0.7825 40.596723,2.60325 40.596723,2.60325 0,0 -8.1719,-17.84824 -7.63248,-48.07884 0.53941,-30.23061 7.49176,-48.874857 7.49176,-48.874857 z"
-                                              id="path10"
+                                              id="on_kaput"
                                               sodipodi:nodetypes="csczcsczc" />
-                                        <path id="path11"
+                                        <path id="on_tampon"
                                               style="fill:#000000;fill-opacity:0"
                                               d="M 22.716797 87.515625 C 22.296634 87.522598 21.333968 87.660863 20.349609 88.650391 C 18.91418 90.093358 19.253906 91.267578 19.253906 91.267578 L 19.335938 177.63477 C 19.335938 177.63477 19.448577 178.70584 20.216797 179.66211 C 21.039875 180.68636 21.951172 180.67969 21.951172 180.67969 L 36.386719 180.67969 C 36.386719 180.67969 37.523747 180.34715 38.123047 179.48242 C 38.624777 178.75847 38.697266 177.44336 38.697266 177.44336 L 38.837891 90.621094 C 38.837891 90.621094 38.755873 89.872097 37.779297 88.794922 C 36.706881 87.612035 36.023438 87.666016 36.023438 87.666016 L 22.9375 87.525391 C 22.9375 87.525391 22.856851 87.513301 22.716797 87.515625 z M 25.505859 94.095703 C 25.598184 94.09356 25.694486 94.098364 25.792969 94.109375 C 27.085788 94.253927 29.44209 94.004073 31.59375 96.056641 C 33.238942 97.626066 33.419922 99.626953 33.419922 99.626953 L 33.630859 113.98047 C 33.630859 113.98047 33.622256 114.9193 33.265625 114.93945 C 32.179552 115.00075 31.873047 114.75391 31.873047 114.75391 C 31.873047 114.75391 27.182479 112.31792 25.787109 111.06445 C 24.415057 109.83192 23.570312 107.29688 23.570312 107.29688 L 23.429688 95.546875 C 23.429688 95.546875 24.120994 94.127857 25.505859 94.095703 z M 32.515625 155.22266 C 33.299725 155.25354 33.490234 156.05469 33.490234 156.05469 L 33.560547 170.54883 C 33.560547 170.54883 33.140974 173.10912 31.376953 174.57031 C 29.875493 175.81401 27.270581 176.18103 26.34375 176.27734 C 23.558501 176.56678 23.535156 174.98047 23.535156 174.98047 L 23.675781 163.01953 C 23.675781 163.01953 23.895145 160.70174 25.552734 159.52539 C 26.51302 158.8439 29.310117 157.02741 31.041016 155.80469 C 31.680208 155.35316 32.159216 155.20862 32.515625 155.22266 z " />
                                         <path style="fill:#000000;fill-opacity:0"
                                               d="m 56.715924,229.64974 c 0,0 -1.562522,3.38 -2.001987,5.0964 -0.439466,1.7164 -0.634806,5.20202 -0.634806,5.20202 l -3.582058,1.39302 v 10.14917 l 2.537291,5e-5 0.02488,2.46267 17.393943,0.0746 c 0,0 -0.06663,-7.92463 4.907906,-14.15442 6.178222,-7.73723 12.051085,-9.07921 12.051085,-9.07921 v -1.14427 z"
-                                              id="path12"
+                                              id="sol_on_camurluk"
                                               sodipodi:nodetypes="czccccccsccc" />
-                                        <path id="path13"
+                                        <path id="sol_on_kapi"
                                               style="fill:#000000;fill-opacity:0"
                                               d="M 192.13672 184.77539 C 192.13672 184.77539 171.05745 185.38659 142.26172 198.65039 C 118.0444 209.8053 101.29297 229.94922 101.29297 229.94922 C 101.29297 229.94922 110.38806 232.23282 115.23047 238.91602 C 120.07287 245.5992 120.79492 253.92773 120.79492 253.92773 L 178.60547 254.12695 C 178.60547 254.12695 182.03294 231.26402 184.24414 219.93164 C 186.54368 208.1465 192.13672 184.77539 192.13672 184.77539 z M 187.95898 188.25781 L 181.58984 217.41016 L 120.35938 217 C 120.35938 217 136.92234 204.37693 153.97852 197.89258 C 174.31971 190.15934 187.95898 188.25781 187.95898 188.25781 z " />
-                                        <path id="path14"
+                                        <path id="sol_arka_kapi"
                                               style="fill:#000000;fill-opacity:0"
                                               d="M 194.52539 184.57617 C 194.52539 184.57617 189.15748 207.17706 186.87109 218.52734 C 184.51408 230.22824 180.5957 253.72852 180.5957 253.72852 L 230.54492 253.92773 C 230.54492 253.92773 230.62943 244.00261 237.41211 237.40234 C 244.1948 230.80208 253.92773 229.25195 253.92773 229.25195 L 253.92773 226.66406 L 236.2168 184.57617 L 194.52539 184.57617 z M 197.41211 187.85938 L 233.23242 187.95898 L 245.27148 217.3125 L 190.84375 217.01367 L 197.41211 187.85938 z " />
                                         <path style="fill:#000000;fill-opacity:0"
                                               d="m 264.96038,229.59999 -0.0124,1.29352 c 0,0 7.3661,2.58006 12.27131,9.03071 4.90521,6.45066 4.9176,14.05367 4.9176,14.05367 l 15.89538,0.0497 c 0,0 -0.0236,-2.34918 2.10745,-3.88316 2.13099,-1.53399 4.23578,-1.76356 4.23578,-1.76356 l -0.0995,-7.38799 -5.07458,-4.87558 v -6.46761 z"
-                                              id="path15"
+                                              id="sol_arka_camurluk"
                                               sodipodi:nodetypes="cczcczccccc" />
                                     </g>
                                 </svg>
@@ -192,7 +192,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 @foreach(var extension in Model.Extensions){
-                                <input type="checkbox" id="extension-@extension.ExtensionId"><span> @extension.ExtensionName</span>
+                                <input type="checkbox" id="extension-@extension.ExtensionId" class="extension from-control" data-id="@extension.ExtensionId"><span> @extension.ExtensionName</span>
                                 <br>
                                 }
                             </div>
@@ -204,22 +204,22 @@
                     <h2>İletişim Bilgileri</h2>
                     <fieldset>
                         <div class="form-group">
-                            <label>Ad Soyad<span class="text-danger">*</span></label>
-                            <input id="fullName" class="form-control">
+                            <label>Adınız<span class="text-danger">*</span></label>
+                            <input id="firstName" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Soyadınız<span class="text-danger">*</span></label>
+                            <input id="lastName" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Telefon Numarası<span class="text-danger">*</span></label>
-                            <input id="phoneNo" class="form-control">
+                            <input id="phoneNo" type="tel" class="form-control" placeholder="05xxxxxxxxx">
                         </div>
                     </fieldset>
                     <h2>Onay</h2>
                     <fieldset>
                         <p>
-                            Quisque at sem turpis, id sagittis diam. Suspendisse malesuada eros posuere mauris vehicula
-                            vulputate. Aliquam sed sem tortor. Quisque sed felis ut mauris feugiat iaculis nec
-                            ac lectus. Sed consequat vestibulum purus, imperdiet varius est pellentesque vitae.
-                            Suspendisse consequat cursus eros, vitae tempus enim euismod non. Nullam ut commodo
-                            tortor.
+                            Bu aşamadan sonra girmiş olduğunuz bilgiler değiştirilemez ve girmiş olduğunuz bilgilere göre fiyat teklifi WhatsApp üzerinden sizlere iletilecektir. Onaylıyorsanız gönder butonuna tıklayınız.
                         </p>
                     </fieldset>
                 </div>
@@ -251,12 +251,23 @@
                 onStepChanging: function (event, currentIndex, newIndex) {
                     if (currentIndex == 0) {
                         if ($('#brandId').val() == "" || $('#brandId').val() ==null) {
-                            mg.showErrorMessage("Lütfen marka seçiniz");
+                            mg.showErrorMessage("Lütfen marka seçiniz!");
                             return false;
                         } else if ($('#modelId').val() == "" || $('#modelId').val()==null) {
-                            mg.showErrorMessage("Lütfen model seçiniz");
+                            mg.showErrorMessage("Lütfen model seçiniz!");
                             return false;
-                        } else {
+                        }
+                        else if($('#year').val()==""||$('#year').val()==null){
+                            mg.showErrorMessage("Lütfen yıl seçiniz!");
+                            return false;
+                        }else if($('#gearType').val()==""||$('#gearType').val()==null){
+                            mg.showErrorMessage("Lütfen vites tipi seçiniz!")
+                            return false;
+                        }else if($('#fuelType').val()==""||$('#fuelType').val()==null){
+                            mg.showErrorMessage('Lütfen yakıt tipi seçiniz');
+                            return false;
+                        }
+                         else {
                             return true;
                             setButtonWavesEffect(event);
                         }
@@ -267,12 +278,59 @@
                 },
                 onStepChanged: function (event, currentIndex, priorIndex) {
                     setButtonWavesEffect(event);
+                },
+                onFinished:function(){
+                    submitForm();
+                    
                 }
             });
             function setButtonWavesEffect(event) {
                 $(event.currentTarget).find('[role="menu"] li a').removeClass('waves-effect');
                 $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('waves-effect');
             }
+
+function submitForm(){
+    const pathElements = document.querySelectorAll('svg path');
+    const damageList = [];
+
+    pathElements.forEach(path => {
+        const damage = $(path).data('damage');
+        if (damage) {
+            damageList.push({ Part: path.id, Status:damage });
+        }
+    });
+
+    const extensionsElements=document.querySelectorAll('.extension');
+    const extensions=[];
+
+    extensionsElements.forEach(extension=>{
+        if($(extension).prop('checked')){
+            extensions.push($(extension).data('id'));
+        }
+    });
+
+    var data={
+            ModelId:$('#modelId').val(),
+            Year:$('#year').val(),
+            GearType:$('#gearType').val(),
+            FuelType:$('#fuelType').val(),
+            CarInfo:damageList,
+            ExtensionIds:extensions,
+            Infos:$('#infos').val(),
+            FirstName:$('#firstName').val(),
+            LastName:$('#lastName').val(),
+            PhoneNo:$('#phoneNo').val()
+        };
+        mg.postJsonData('/json_send_request',data,function(result){
+            if(result.status){
+                mg.showSuccessMessage(result.message);
+                location.href('/');
+            }else{
+                mg.showErrorMessage(result.message);
+            }
+        })
+}
+
             $('.select2').select2();
             $('#carDamage').on('click', 'path', function () {
                     var part = $(this).attr('id');
@@ -307,6 +365,7 @@
                         else{
                             $('#'+part).attr("style", "fill:#000000;fill-opacity:0");
                         }
+                        $('#'+part).data('damage',value);
                     });
                 });
 
