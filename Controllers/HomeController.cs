@@ -2,10 +2,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using mygallery.Context;
 using mygallery.Models;
-using System.IO;
 using Newtonsoft.Json;
 using mygallery.Infrastuctures;
-using Microsoft.VisualBasic;
 using mygallery.Data;
 using mygallery.Models.ViewModels;
 using Microsoft.Extensions.Options;
@@ -51,6 +49,7 @@ public class HomeController : BaseController
 
 	[HttpPost]
 	public JsonResult json_send_request([FromBody] CustomerBuyRequestData data){
+		string errorMessage="Beklenmeyen bir sorun oluştu. Lütfen daha sonra tekrar deneyiniz.";
 		var justRequest=new BuyRequest{
 				FistName=data.FirstName,
 				LastName=data.LastName,
@@ -63,11 +62,51 @@ public class HomeController : BaseController
 				Year=data.Year,
 
 		};
-		
-		foreach(var info in data.CarInfo){
 
+		dbContext.BuyRequests.Add(justRequest);
+		try
+		{
+		dbContext.SaveChanges();
+		}
+		catch (Exception)
+		{
+			return Json(new Result(false,errorMessage));
+		}
+		foreach(var info in data.CarInfo){
+				var justInfo=new RequestDamageInfo{
+					RequestId=justRequest.RequestId,
+					PartName=info.Part,
+					Damage=info.Status,
+				};
+				dbContext.RequestDamageInfos.Add(justInfo);
 		}
 
+		try
+		{
+		dbContext.SaveChanges();
+		}
+		catch (System.Exception)
+		{			
+			return Json(new Result(false,errorMessage));
+		}
+		foreach(var extension in data.ExtensionIds){
+			var justExtension=new BuyRequestExtension{
+				ExtensionId=extension,
+				IsHave=true,
+				RequestId=justRequest.RequestId
+			};
+			dbContext.BuyRequestExtensions.Add(justExtension);
+		}
+
+		try
+		{
+		dbContext.SaveChanges();
+		}
+		catch (System.Exception)
+		{			
+			return Json(new Result(false,errorMessage));
+		}
+//SendMail
 
 		return Json(new Result(true,"Talebiniz alınmıştır. En kısa sürede size dönüş yapıyor olacağız."));
 	}

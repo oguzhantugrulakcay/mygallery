@@ -29,6 +29,10 @@ public partial class MyGalleryContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=213.238.168.71\\MSSQLSERVER2017;Database=mygallery;User ID=mygallery_admin;Password=Art2356.!;MultipleActiveResultSets=true;TrustServerCertificate=True");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("mygallery_admin");
@@ -94,9 +98,10 @@ public partial class MyGalleryContext : DbContext
 
         modelBuilder.Entity<RequestDamageInfo>(entity =>
         {
-            entity.HasKey(e => e.InfoId).HasName("PK_DamageInfo");
+            entity.HasKey(e => e.InfoId).HasName("PK_RequestDamageInfo");
 
-            entity.Property(e => e.Back).HasColumnName("back");
+            entity.Property(e => e.Damage).HasMaxLength(50);
+            entity.Property(e => e.PartName).HasMaxLength(50);
 
             entity.HasOne(d => d.Request).WithMany(p => p.RequestDamageInfos)
                 .HasForeignKey(d => d.RequestId)
