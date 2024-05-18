@@ -32,7 +32,22 @@ namespace mygallery.Controllers
             {
                 new("Anasayfa", "/yonetim/Anasayfa")
             });
-            return View();
+
+            var vm=new AnasayfaViewModel{
+                BuyRequestCount=dbContext.BuyRequests.Where(r=>r.CreatedAt.Date==DateTime.Today).Count(),
+                MyCarsCount=0,
+                WaitingRequestCount=dbContext.BuyRequests.Where(r=>!r.IsCompleted).Count(),
+                Requests=dbContext.BuyRequests.Where(r=>!r.IsCompleted)
+                .Select(r=>new AnasayfaViewModel.Request{
+                    RequestId=r.RequestId,
+                    BrandName=r.Model.Brand.BrandName,
+                    ModelName=r.Model.ModelName,
+                    FuelType=r.FuelType,
+                    GearType=r.GearType,
+                    Year=r.Year
+                }).ToList()
+            };
+            return View(vm);
         }
         #endregion
         #region  Tanımlar

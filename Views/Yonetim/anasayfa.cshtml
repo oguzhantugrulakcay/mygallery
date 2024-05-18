@@ -1,13 +1,15 @@
 @{
     ViewData["Title"] = "Yönetim";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var requestCounter=1;
 }
+@model mygallery.Models.ViewModels.AnasayfaViewModel
 <div class="row ">
     <div class="col-sm-12 col-md-4">
         <div class="card text-center l-coral">
             <div class="body">
                 <div class="p-15 text-light">
-                    <h3>521</h3>
+                    <h3>@Model.WaitingRequestCount</h3>
                     <span>Bekleyen Teklif Sayısı</span>
                 </div>
             </div>
@@ -17,8 +19,8 @@
         <div class="card text-center l-blush">
             <div class="body">
                 <div class="p-15 text-light">
-                    <h3>521</h3>
-                    <span>Vitrindeki Araçlar</span>
+                    <h3>@Model.BuyRequestCount</h3>
+                    <span>Bugünki Toplam Teklif</span>
                 </div>
             </div>
         </div>
@@ -27,8 +29,8 @@
         <div class="card text-center l-amber">
             <div class="body">
                 <div class="p-15 text-light">
-                    <h3>521</h3>
-                    <span>Bekleyen Teklif Sayısı</span>
+                    <h3>@Model.MyCarsCount</h3>
+                    <span>Araç Sayım</span>
                 </div>
             </div>
         </div>
@@ -47,11 +49,25 @@
                             <th>#</th>
                             <th>Marka</th>
                             <th>Model</th>
-                            <th>Kilometre</th>
+                            <th>Yıl</th>
+                            <th>Vites tipi</th>
+                            <th>Yakıt Tipi</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr></tr>
+                        @foreach (var request in Model.Requests){
+                            <tr>
+                            <td>@requestCounter</td>
+                            <td>@request.BrandName</td>
+                            <td>@request.ModelName</td>
+                            <td>@request.Year</td>
+                            <td>@request.GearType</td>
+                            <td>@request.FuelType</td>
+                            <td><a href="/teklifler/@request.RequestId/detay">Görüntüle</a></td>
+                        </tr>
+                        requestCounter++;
+                        }
                     </tbody>
                 </table>
             </div>
