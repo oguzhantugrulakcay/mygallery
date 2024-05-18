@@ -25,7 +25,7 @@ public partial class BuyRequest
 
     public DateTime CreatedAt { get; set; }
 
-    public bool IsCompleted { get; set; }
+    public bool IsCompleted { get; set; }=false;
 
     public virtual ICollection<BuyRequestExtension> BuyRequestExtensions { get; set; } = new List<BuyRequestExtension>();
 

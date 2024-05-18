@@ -31,5 +31,9 @@
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.10" />
   </ItemGroup>
-
+<ItemGroup>
+  <None Update="templates\**\*">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+</ItemGroup>
 </Project>

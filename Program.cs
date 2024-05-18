@@ -14,18 +14,6 @@ using Serilog.Events;
 using Serilog.Formatting.Json;
 
 Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-    .Enrich.FromLogContext()
-    .WriteTo.Console()
-    .WriteTo.Debug()
-    .WriteTo.File("./logs/bootstraplog-.txt",
-        LogEventLevel.Verbose,
-        rollingInterval: RollingInterval.Day,
-        retainedFileCountLimit: 14,
-        fileSizeLimitBytes: 100_000_000)
-    .CreateBootstrapLogger();
-
-Log.Logger = new LoggerConfiguration()
 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
 .Enrich.FromLogContext()
 .WriteTo.Console()
@@ -39,6 +27,7 @@ retainedFileCountLimit: 30)
 
 var builder = WebApplication.CreateBuilder(args);
 #region Services
+builder.Host.UseSerilog();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -64,6 +53,7 @@ builder.Services.AddMemoryCache();
 var configuration = builder.Configuration;
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddSingleton(configuration);
 builder.Services.Configure<AppConfig>(configuration.GetSection("AppConfig"));
 

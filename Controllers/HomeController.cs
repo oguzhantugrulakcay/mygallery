@@ -8,6 +8,7 @@ using mygallery.Data;
 using mygallery.Models.ViewModels;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.EntityFrameworkCore;
 
 namespace mygallery.Controllers;
 [Route("[action]")]
@@ -17,7 +18,8 @@ public class HomeController : BaseController
 	private readonly LoginHelper loginHelper;
 	private readonly AppConfig appConfig;
 	private readonly IDataProtectionProvider dataProtectionProvider;
-	public HomeController(ILogger<HomeController> logger, MyGalleryContext context,IOptions<AppConfig> config,IDataProtectionProvider dataProtectionProvider)
+	private readonly IMailService mailService;
+	public HomeController(ILogger<HomeController> logger, MyGalleryContext context,IOptions<AppConfig> config,IDataProtectionProvider dataProtectionProvider,IMailService _mailService)
 	{
 		dbContext = context;
 		_logger = logger;
@@ -26,6 +28,7 @@ public class HomeController : BaseController
 		loginHelper=new LoginHelper(
 			context,appConfig,dataProtectionProvider,"mg_co","",180
 		);
+		mailService=_mailService;
 	}
 	[HttpGet("/")]
 	public IActionResult Index()
@@ -51,26 +54,30 @@ public class HomeController : BaseController
 	public JsonResult json_send_request([FromBody] CustomerBuyRequestData data){
 		string errorMessage="Beklenmeyen bir sorun oluştu. Lütfen daha sonra tekrar deneyiniz.";
 		var justRequest=new BuyRequest{
-				FistName=data.FirstName,
-				LastName=data.LastName,
-				CreatedAt=DateTime.Now,
-				ExtraExtension=data.Infos,
-				FuelType=data.FuelType,
-				GearType=data.GearType,
-				GsmNo=data.PhoneNo,
-				ModelId=data.ModelId,
-				Year=data.Year,
-
+			CreatedAt=DateTime.Now,
+			FistName=data.FirstName,
+			FuelType=data.FuelType,
+			GearType=data.GearType,
+			GsmNo=data.PhoneNo,
+			ExtraExtension=data.Infos,
+			IsCompleted=false,
+			LastName=data.LastName,
+			Year=data.Year,
+			ModelId=data.ModelId,
 		};
-
 		dbContext.BuyRequests.Add(justRequest);
 		try
 		{
 		dbContext.SaveChanges();
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
+			
+			#if DEBUG
+			return Json(new Result(false,ex.Message+ex.InnerException?.Message));
+			#endif
 			return Json(new Result(false,errorMessage));
+
 		}
 		foreach(var info in data.CarInfo){
 				var justInfo=new RequestDamageInfo{
@@ -106,7 +113,9 @@ public class HomeController : BaseController
 		{			
 			return Json(new Result(false,errorMessage));
 		}
-//SendMail
+		var request=dbContext.BuyRequests.Include(r=>r.Model).FirstOrDefault(r=>r.RequestId==justRequest.RequestId);
+
+		mailService.SendBuyRequestMail(request.Model.ModelName,request.Model.Brand.BrandName,request.Year);
 
 		return Json(new Result(true,"Talebiniz alınmıştır. En kısa sürede size dönüş yapıyor olacağız."));
 	}
