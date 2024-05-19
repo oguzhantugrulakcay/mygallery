@@ -1,0 +1,88 @@
+@{
+    ViewData["Title"] = "liste";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Css {
+    <link rel="stylesheet" href="~/vendor/select2/select2.css" />
+}
+
+<div class="card">
+    <div class="header">
+        <h6>Filtre</h6>
+    </div>
+    <div class="body">
+        <div class="row">
+            <div class="col-md-4 col-sm-12 form-group">
+                <label>Marka</label>
+                <select id="searchBrandId" class="form-control show-tick ms select2" data-placeholder="Select">
+                </select>
+            </div>
+            <div class="col-md-4 col-sm-12 form-group">
+                <label>Model</label>
+                <select id="searchModelId" class="form-control show-tick ms select2" data-placeholder="Select">
+                </select>
+            </div>
+            <div class="col-md-4 col-sm-12 form-group">
+                <label>Yıl</label>
+                <select id="searchYear" class="form-control show-tick ms select2" data-placeholder="Select">
+                    <option value="">Seçiniz</option>
+                    @for (int i = DateTime.Now.Year; i >= 2010; i--)
+                    {
+                        <option>@i</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-md-8 col-md-4 col-sm-12 form-group">
+                <button id="cmdList" class="btn btn-danger btn-block">Listele</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="body">
+        <div id="gridRequests"></div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/vendor/select2/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            mg.getBrands('#searchBrandId', null, null);
+            mg.getModels('#searchModelId', $('#searchBrandId').val(), null, null);
+
+            $(document).on('change', '#searchBrandId', function (e) {
+                mg.getModels('#searchModelId', $('#searchBrandId').val(), null, null);
+            });
+
+            var gridRequests = $('#gridRequests').konseptGrid({
+                url: '/teklifler/json_get_request_data',
+                pageSize: 10,
+                enablePageInfo: true,
+                columns: [
+                    { field: 'Requester', title: 'Talep Sahibi', width: '240px', template: '<a href="/teklifler/{{RequestId}}/detay">{{Requester}}</a>' },
+                    { field: 'BrandName', title: 'Marka', width: '230px', },
+                    { field: 'ModelName', title: 'Model', width: '130px' },
+                    { field: 'Year', title: 'Yıl', width: '130px' },
+                    { field: 'GearType', title: 'Vites Tipi', width: '230px' },
+                    { field: 'FuelType', title: 'Yakıt Tipi', width: '230px' },
+                ],
+                extraParameters: function () {
+                    return {
+                        BrandId: $('#searchBrandId').val(),
+                        ModelId: $('#searchModelId').val(),
+                        Year: $('#searchYear').val(),
+                    };
+                }
+            }).data('konseptGrid');
+
+            $('#cmdList').click(function (e) {
+                gridRequests.load();
+            });
+
+        });
+    </script>
+}
