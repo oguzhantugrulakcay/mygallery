@@ -3,10 +3,11 @@ using mygallery.Data;
 
 namespace mygallery.Extensions
 {
-    public static class QueryableExtensions
+    public static class QueryableExtension
     {
         public static PageableData<T> ToGridJson<T>(this IQueryable<T> query, string sort, int skip, int take)
         {
+            var qr=query;
             return new PageableData<T>
             {
                 count = query.Count(),
@@ -29,4 +30,5 @@ namespace mygallery.Extensions
             return string.Join(separator, source.Select(s => s.ToString()).ToArray());
         }
     }
+
 }

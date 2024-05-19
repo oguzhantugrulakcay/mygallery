@@ -9,6 +9,7 @@ using mygallery.Context;
 using mygallery.Data;
 using mygallery.Infrastuctures;
 using mygallery.Models;
+using Newtonsoft.Json.Serialization;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Json;
@@ -96,6 +97,12 @@ options.UseLazyLoadingProxies()
        .UseSqlServer(cs, o => o.UseCompatibilityLevel(sqlCompatibilityLevel))
        .ConfigureWarnings(b => b.Ignore(SqlServerEventId.SavepointsDisabledBecauseOfMARS)));
 builder.Services.AddApplicationInsightsTelemetry();
+
+builder.Services.AddControllers()
+        .AddNewtonsoftJson(options =>
+        {
+            options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+        });
 
 #endregion
 var app = builder.Build();

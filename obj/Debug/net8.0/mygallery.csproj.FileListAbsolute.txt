@@ -327,3 +327,6 @@ C:/Users/oakcay/source/repos/oguzhantugrulakcay/mygallery/bin/Debug/net8.0/car_b
 /Volumes/OguzhanSSD/Projects/mygallery/bin/Debug/net8.0/templates/SendBuyRequestMail.html
 /Volumes/OguzhanSSD/Projects/mygallery/bin/Debug/net8.0/logs/log-20240518.json
 /Volumes/OguzhanSSD/Projects/mygallery/bin/Debug/net8.0/logs/log-20240519.json
+/Volumes/OguzhanSSD/Projects/mygallery/bin/Debug/net8.0/Microsoft.AspNetCore.JsonPatch.dll
+/Volumes/OguzhanSSD/Projects/mygallery/bin/Debug/net8.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+/Volumes/OguzhanSSD/Projects/mygallery/bin/Debug/net8.0/Newtonsoft.Json.Bson.dll

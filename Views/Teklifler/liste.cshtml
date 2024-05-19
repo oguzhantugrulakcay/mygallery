@@ -34,8 +34,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="offset-md-8 col-md-4 col-sm-12 form-group">
-                <button id="cmdList" class="btn btn-danger btn-block">Listele</button>
+            <div class="col-md-4 col-sm-12 form-group">
+                <label>Talep Sahibi</label>
+                <input id="searchRequester" class="form-control">
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <label>Durumu</label>
+                <select id="searchStatus" class="form-control">
+                    <option value="">Seçimiz</option>
+                    <option value="false">Beklemede</option>
+                    <option value="true">Onaylandı</option>
+                </select>
+            </div>
+            <div class="col-md-4 col-sm-12 form-group">
+                <button id="cmdList" class="btn btn-danger btn-block mt-4">Listele</button>
             </div>
         </div>
     </div>
@@ -61,7 +73,7 @@
             var gridRequests = $('#gridRequests').konseptGrid({
                 url: '/teklifler/json_get_request_data',
                 pageSize: 10,
-                enablePageInfo: true,
+                enablePageInfo: false,
                 columns: [
                     { field: 'Requester', title: 'Talep Sahibi', width: '240px', template: '<a href="/teklifler/{{RequestId}}/detay">{{Requester}}</a>' },
                     { field: 'BrandName', title: 'Marka', width: '230px', },
@@ -69,12 +81,15 @@
                     { field: 'Year', title: 'Yıl', width: '130px' },
                     { field: 'GearType', title: 'Vites Tipi', width: '230px' },
                     { field: 'FuelType', title: 'Yakıt Tipi', width: '230px' },
+                    { field: 'Status', title: 'Durumu', width: '230px' },
                 ],
                 extraParameters: function () {
                     return {
-                        BrandId: $('#searchBrandId').val(),
-                        ModelId: $('#searchModelId').val(),
-                        Year: $('#searchYear').val(),
+                        BrandId: parseInt($('#searchBrandId').val()),
+                        ModelId: parseInt($('#searchModelId').val()),
+                        Year: parseInt($('#searchYear').val()),
+                        Requester:$('#searchRequester').val(),
+                        Status:$('#searchStatus').val()
                     };
                 }
             }).data('konseptGrid');
