@@ -13,6 +13,7 @@ public class CustomerBuyRequestData
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string PhoneNo { get; set; }
+    public long Km { get; set; }
     public class CarPartInfo
 {
     public string Part { get; set; }

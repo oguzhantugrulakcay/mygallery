@@ -8,12 +8,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@vm.PageTitle - mygallery</title>
-    <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/vendor/font-awesome/css/all.css" />
-    <link rel="stylesheet" href="~/css/main.css">
-    <link rel="stylesheet" href="~/css/color_skins.css">
-    <link rel="stylesheet" href="~/css/site.css">
-    @RenderSectionAsync("Css",false);
+    <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap.min.css?version=@vm.Version" />
+    <link rel="stylesheet" href="~/vendor/font-awesome/css/all.css?version=@vm.Version" />
+    <link rel="stylesheet" href="~/css/main.css?version=@vm.Version">
+    <link rel="stylesheet" href="~/css/color_skins.css?version=@vm.Version">
+    <link rel="stylesheet" href="~/css/site.css?version=@vm.Version">
+    @await RenderSectionAsync("Css",false);
 </head>
 <body class="theme-red">
    <div id="wrapper">
@@ -25,7 +25,7 @@
             </div>
 
             <div class="navbar-brand">
-                <a href="/yonetim/anasayfa"><img src="../images/logo.png" alt="Lucid Logo" class="img-responsive logo"></a>                
+                <a href="/yonetim/anasayfa"><img src="~/images/logo.png" alt="myGalleryLogo" class="img-responsive logo"></a>                
             </div>
             
             <div class="navbar-right">          
@@ -125,17 +125,17 @@
             &copy; 2024 - mygallery - Ailenizin Yazılımcısı <b><i>Oğuzhantuğrul Akçay</i></b><a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/vendor/popperjs/popper.min.js"></script>
-    <script src="~/vendor/jquery/jquery.min.js"></script>
-    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="~/vendor/metisMenu/metisMenu.js"></script>
-    <script src="~/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="~/vendor/moment/moment.min.js"></script>
-    <script src="~/vendor/mustache/mustache.min.js"></script>
-    <script src="~/vendor/konsept/konseptgrid.js"></script>
-    <script src="~/js/common.js"></script>
+    <script src="~/vendor/popperjs/popper.min.js?version=@vm.Version"></script>
+    <script src="~/vendor/jquery/jquery.min.js?version=@vm.Version"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.min.js?version=@vm.Version"></script>
+    <script src="~/vendor/metisMenu/metisMenu.js?version=@vm.Version"></script>
+    <script src="~/vendor/jquery-slimscroll/jquery.slimscroll.min.js?version=@vm.Version"></script>
+    <script src="~/vendor/moment/moment.min.js?version=@vm.Version"></script>
+    <script src="~/vendor/mustache/mustache.min.js?version=@vm.Version"></script>
+    <script src="~/vendor/konsept/konseptgrid.js?version=@vm.Version"></script>
+    <script src="~/js/common.js?version=@vm.Version"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="~/js/site.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/js/site.js?version=@vm.Version"></script>
+    @await RenderSectionAsync("Scripts", false)
 </body>
 </html>

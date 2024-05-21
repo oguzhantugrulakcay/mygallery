@@ -1,1 +1,1 @@
-dotnet ef dbcontext Scaffold "Server=213.238.168.71\MSSQLSERVER2017;Database=mygallery;User ID=mygallery_admin;Password=Art2356.!;MultipleActiveResultSets=true;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer --context MyGalleryContext --output-dir Context --force
+dotnet ef dbcontext Scaffold "Server=213.238.168.71\MSSQLSERVER2017;Database=myGalerry;User ID=libertycars;Password=Art2356.!;MultipleActiveResultSets=true;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer --context MyGalleryContext --output-dir Context --force

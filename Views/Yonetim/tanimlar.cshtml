@@ -74,8 +74,8 @@
                     },
                 }).then((value) => {
                     mg.postJsonData('/yonetim/json_upsert_brand', { Text: value }, function (result) {
-                        if (result.status) {
-                            mg.showSuccessMessage(result.message);
+                        if (result.Status) {
+                            mg.showSuccessMessage(result.Message);
                             mg.getView('/yonetim/_tanimlar_markalar', null, function (view) {
                                 $('.brands').html(view);
                             });
@@ -96,8 +96,8 @@
                     },
                 }).then((value) => {
                     mg.postJsonData('/yonetim/json_upsert_brand', { Id: brandId, Text: value }, function (result) {
-                        if (result.status) {
-                            mg.showSuccessMessage(result.message);
+                        if (result.Status) {
+                            mg.showSuccessMessage(result.Message);
                             mg.getView('/yonetim/_tanimlar_markalar', null, function (view) {
                                 $('.brands').html(view);
                             });
@@ -118,13 +118,13 @@
                     .then((willDelete) => {
                         if (willDelete) {
                             mg.postJsonData('/yonetim/json_delete_brand', { Id: brandId }, function (result) {
-                                if (result.status) {
-                                    mg.showSuccessMessage(result.message)
+                                if (result.Status) {
+                                    mg.showSuccessMessage(result.Message)
                                     mg.getView('/yonetim/_tanimlar_markalar', null, function (view) {
                                         $('.brands').html(view);
                                     })
                                 } else {
-                                    mg.showErrorMessage(result.message, null);
+                                    mg.showErrorMessage(result.Message, null);
                                 }
                             })
 
@@ -149,13 +149,13 @@
                         ModelName: modelName
                     };
                     mg.postJsonData('/yonetim/json_upsert_model', data, function (result) {
-                        if (result.status) {
-                            mg.showSuccessMessage(result.message);
+                        if (result.Status) {
+                            mg.showSuccessMessage(result.Message);
                             mg.getView('/yonetim/_tanimlar_modeller', { Id: selectedBrandId }, function (view) {
                                 $('.models').html(view);
                             });
                         } else {
-                            mg.showErrorMessage(result.message);
+                            mg.showErrorMessage(result.Message);
                         }
                     });
                 });
@@ -173,13 +173,13 @@
                     .then((willDelete) => {
                         if (willDelete) {
                             mg.postJsonData('/yonetim/json_delete_model', { Id: modelId }, function (result) {
-                                if (result.status) {
-                                    mg.showSuccessMessage(result.message)
+                                if (result.Status) {
+                                    mg.showSuccessMessage(result.Message)
                                     mg.getView('/yonetim/_tanimlar_modeller', { Id: selectedBrandId }, function (view) {
                                         $('.models').html(view);
                                     })
                                 } else {
-                                    mg.showErrorMessage(result.message, null);
+                                    mg.showErrorMessage(result.Message, null);
                                 }
                             })
 
@@ -204,13 +204,13 @@
                         ModelName: value
                     };
                     mg.postJsonData('/yonetim/json_upsert_model', data, function (result) {
-                        if (result.status) {
-                            mg.showSuccessMessage(result.message);
+                        if (result.Status) {
+                            mg.showSuccessMessage(result.Message);
                             mg.getView('/yonetim/_tanimlar_modeller', { Id: selectedBrandId }, function (view) {
                                 $('.models').html(view);
                             });
                         } else {
-                            mg.showErrorMessage(result.message);
+                            mg.showErrorMessage(result.Message);
                         }
                     });
                 });
@@ -231,13 +231,13 @@
                         Text: value
                     };
                     mg.postJsonData('/yonetim/json_upsert_extension', data, function (result) {
-                        if (result.status) {
-                            mg.showSuccessMessage(result.message);
+                        if (result.Status) {
+                            mg.showSuccessMessage(result.Message);
                             mg.getView('/yonetim/_tanimlar_ozellikler', null, function (view) {
                                 $('.extensions').html(view);
                             });
                         } else {
-                            mg.showErrorMessage(result.message);
+                            mg.showErrorMessage(result.Message);
                         }
                     });
                 });
@@ -259,13 +259,13 @@
                         Text: value
                     };
                     mg.postJsonData('/yonetim/json_upsert_extension', data, function (result) {
-                        if (result.status) {
-                            mg.showSuccessMessage(result.message);
+                        if (result.Status) {
+                            mg.showSuccessMessage(result.Message);
                             mg.getView('/yonetim/_tanimlar_ozellikler', null, function (view) {
                                 $('.extensions').html(view);
                             });
                         } else {
-                            mg.showErrorMessage(result.message);
+                            mg.showErrorMessage(result.Message);
                         }
                     });
                 });
@@ -283,13 +283,13 @@
                     .then((willDelete) => {
                         if (willDelete) {
                             mg.postJsonData('/yonetim/json_delete_extension', { Id: id }, function (result) {
-                                if (result.status) {
-                                    mg.showSuccessMessage(result.message)
+                                if (result.Status) {
+                                    mg.showSuccessMessage(result.Message)
                                     mg.getView('/yonetim/_tanimlar_ozellikler', null, function (view) {
                                         $('.extensions').html(view);
                                     });
                                 } else {
-                                    mg.showErrorMessage(result.message, null);
+                                    mg.showErrorMessage(result.Message, null);
                                 }
                             })
 

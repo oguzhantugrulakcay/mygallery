@@ -13,7 +13,7 @@ public partial class BuyRequestExtension
 
     public bool IsHave { get; set; }
 
-    public virtual CarExtension Extension { get; set; } = null!;
+    public virtual CarExtension Extension { get; set; }
 
-    public virtual BuyRequest Request { get; set; } = null!;
+    public virtual BuyRequest Request { get; set; }
 }

@@ -7,13 +7,13 @@ public partial class User
 {
     public int UserId { get; set; }
 
-    public string LoginName { get; set; } = null!;
+    public string LoginName { get; set; }
 
-    public string? LoginPassword { get; set; }
+    public string LoginPassword { get; set; }
 
-    public string FirstName { get; set; } = null!;
+    public string FirstName { get; set; }
 
-    public string LastName { get; set; } = null!;
+    public string LastName { get; set; }
 
     public DateTime CreatedAt { get; set; }
 

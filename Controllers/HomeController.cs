@@ -64,6 +64,7 @@ public class HomeController : BaseController
 			LastName=data.LastName,
 			Year=data.Year,
 			ModelId=data.ModelId,
+			Km=data.Km,
 		};
 		dbContext.BuyRequests.Add(justRequest);
 		try
@@ -217,6 +218,6 @@ public class HomeController : BaseController
 	[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 	public IActionResult Error()
 	{
-		return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		return View(new ErrorViewModel());
 	}
 }

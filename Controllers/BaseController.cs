@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -29,7 +30,9 @@ namespace mygallery.Controllers
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             base.OnActionExecuting(context);
+var assembly = Assembly.GetExecutingAssembly();
 
+        var version = assembly.GetName().Version.ToString();
             if (context.Controller is Controller controller &&
                 context.HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
             {
@@ -39,7 +42,7 @@ namespace mygallery.Controllers
                     vm.FirstName=currentUser.FirstName;
                     vm.LastName=currentUser.LastName;
                 }
-
+                vm.Version=version;
                 controller.ViewData["LayoutViewModel"] = vm;
             }
         }

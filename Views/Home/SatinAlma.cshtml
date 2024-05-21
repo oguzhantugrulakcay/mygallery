@@ -51,17 +51,17 @@
                     <fieldset>
                         <div class="form-group">
                             <label>Marka<span class="text-danger">*</span></label>
-                            <select id="brandId" class="form-control show-tick ms select2" data-placeholder="Select">
+                            <select id="brandId" class=" border-0 form-control show-tick ms select2" data-placeholder="Select">
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Model<span class="text-danger">*</span></label>
-                            <select id="modelId" class="form-control show-tick ms select2" data-placeholder="Select">
+                            <select id="modelId" class="border-0  form-control show-tick ms select2" data-placeholder="Select">
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Yıl<span class="text-danger">*</span></label>
-                            <select id="year" class="form-control show-tick ms select2" data-placeholder="Select">
+                            <select id="year" class="border-0 form-control show-tick ms select2" data-placeholder="Select">
                                 <option value="">Seçiniz</option>
                                 @for (int i = DateTime.Now.Year; i >= 2010; i--)
                                 {
@@ -71,7 +71,7 @@
                         </div>
                         <div class="form-group">
                             <label>Vites Tipi<span class="text-danger">*</span></label>
-                            <select id="gearType" class="form-control show-tick ms select2" data-placeholder="Select">
+                            <select id="gearType" class="border-0 form-control show-tick ms select2" data-placeholder="Select">
                                 <option value="">Seçiniz</option>
                                 <option>Manuel</option>
                                 <option>Otomatik</option>
@@ -79,13 +79,17 @@
                         </div>
                         <div class="form-group">
                             <label>Yakıt Tipi<span class="text-danger">*</span></label>
-                            <select id="fuelType" class="form-control show-tick ms select2" data-placeholder="Select">
+                            <select id="fuelType" class="border-0 form-control show-tick ms select2" data-placeholder="Select">
                                 <option value="">Seçiniz</option>
                                 <option>Benzin</option>
                                 <option>Dizel</option>
                                 <option>Elektirik</option>
                                 <option>Hibrit(Benzin+Elektrik)</option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Km<span class="text-danger">*</span></label>
+                            <input class="form-control" id="km" type="number" placeholder="Lütfen araç kilometresini giriniz.">
                         </div>
                     </fieldset>
                     <h2>Hasar Bilgileri</h2>
@@ -245,6 +249,11 @@
                 headerTag: 'h2',
                 bodyTag: 'fieldset',
                 transitionEffect: 'slideLeft',
+                labels: {
+            finish: "Gönder",
+            next: "İleri",
+            previous: "Geri"
+        },
                 onInit: function (event, currentIndex) {
                     setButtonWavesEffect(event);
                 },
@@ -265,6 +274,9 @@
                             return false;
                         }else if($('#fuelType').val()==""||$('#fuelType').val()==null){
                             mg.showErrorMessage('Lütfen yakıt tipi seçiniz');
+                            return false;
+                        }else if($('#km').val()==""||$('#km').val()==null){
+                            mg.showErrorMessage('Lütfen araç kilometresini giriniz',null);
                             return false;
                         }
                          else {
@@ -319,14 +331,15 @@ function submitForm(){
             Infos:$('#infos').val(),
             FirstName:$('#firstName').val(),
             LastName:$('#lastName').val(),
-            PhoneNo:$('#phoneNo').val()
+            PhoneNo:$('#phoneNo').val(),
+            Km:$('#km').val()
         };
         mg.postJsonData('/json_send_request',data,function(result){
-            if(result.status){
-                mg.showSuccessMessage(result.message);
+            if(result.Status){
+                mg.showSuccessMessage(result.Message,null);
                 location.href('/');
             }else{
-                mg.showErrorMessage(result.message);
+                mg.showErrorMessage(result.Message,null);
             }
         })
 }

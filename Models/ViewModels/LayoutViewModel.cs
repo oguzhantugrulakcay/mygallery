@@ -20,6 +20,7 @@ public class LayoutViewModel
     public List<UserInfo> Infos { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
+    public string Version { get; set; }
     public class UserInfo
     {
         public int InfoId { get; set; }

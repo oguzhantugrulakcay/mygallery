@@ -30,18 +30,20 @@ public partial class MyGalleryContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseLazyLoadingProxies(); // Lazy Loading'i etkinleştir
-    }
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=213.238.168.71\\MSSQLSERVER2017;Database=myGalerry;User ID=libertycars;Password=Art2356.!;MultipleActiveResultSets=true;TrustServerCertificate=True");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasDefaultSchema("mygallery_admin");
+        modelBuilder.HasDefaultSchema("libertycars");
 
         modelBuilder.Entity<Brand>(entity =>
         {
             entity.HasKey(e => e.BrandId).HasName("PK_BRAND");
 
-            entity.Property(e => e.BrandName).HasMaxLength(100);
+            entity.Property(e => e.BrandName)
+                .IsRequired()
+                .HasMaxLength(100);
         });
 
         modelBuilder.Entity<BuyRequest>(entity =>
@@ -50,11 +52,20 @@ public partial class MyGalleryContext : DbContext
 
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.ExtraExtension).HasMaxLength(1000);
-            entity.Property(e => e.FistName).HasMaxLength(100);
-            entity.Property(e => e.FuelType).HasMaxLength(10);
-            entity.Property(e => e.GearType).HasMaxLength(10);
-            entity.Property(e => e.GsmNo).HasMaxLength(20);
-            entity.Property(e => e.LastName).HasMaxLength(100);
+            entity.Property(e => e.FistName)
+                .IsRequired()
+                .HasMaxLength(100);
+            entity.Property(e => e.FuelType).HasMaxLength(25);
+            entity.Property(e => e.GearType)
+                .IsRequired()
+                .HasMaxLength(10);
+            entity.Property(e => e.GsmNo)
+                .IsRequired()
+                .HasMaxLength(20);
+            entity.Property(e => e.LastName)
+                .IsRequired()
+                .HasMaxLength(100);
+            entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
 
             entity.HasOne(d => d.Model).WithMany(p => p.BuyRequests)
                 .HasForeignKey(d => d.ModelId)
@@ -81,14 +92,18 @@ public partial class MyGalleryContext : DbContext
         {
             entity.HasKey(e => e.ExtensionId).HasName("PK_CarEKtension");
 
-            entity.Property(e => e.ExtensionName).HasMaxLength(50);
+            entity.Property(e => e.ExtensionName)
+                .IsRequired()
+                .HasMaxLength(50);
         });
 
         modelBuilder.Entity<Model>(entity =>
         {
             entity.HasKey(e => e.ModelId).HasName("PK_MODEL");
 
-            entity.Property(e => e.ModelName).HasMaxLength(50);
+            entity.Property(e => e.ModelName)
+                .IsRequired()
+                .HasMaxLength(50);
 
             entity.HasOne(d => d.Brand).WithMany(p => p.Models)
                 .HasForeignKey(d => d.BrandId)
@@ -100,8 +115,12 @@ public partial class MyGalleryContext : DbContext
         {
             entity.HasKey(e => e.InfoId).HasName("PK_RequestDamageInfo");
 
-            entity.Property(e => e.Damage).HasMaxLength(50);
-            entity.Property(e => e.PartName).HasMaxLength(50);
+            entity.Property(e => e.Damage)
+                .IsRequired()
+                .HasMaxLength(50);
+            entity.Property(e => e.PartName)
+                .IsRequired()
+                .HasMaxLength(50);
 
             entity.HasOne(d => d.Request).WithMany(p => p.RequestDamageInfos)
                 .HasForeignKey(d => d.RequestId)
@@ -112,10 +131,16 @@ public partial class MyGalleryContext : DbContext
         modelBuilder.Entity<User>(entity =>
         {
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
-            entity.Property(e => e.FirstName).HasMaxLength(50);
+            entity.Property(e => e.FirstName)
+                .IsRequired()
+                .HasMaxLength(50);
             entity.Property(e => e.IsActive).HasDefaultValue(true);
-            entity.Property(e => e.LastName).HasMaxLength(50);
-            entity.Property(e => e.LoginName).HasMaxLength(25);
+            entity.Property(e => e.LastName)
+                .IsRequired()
+                .HasMaxLength(50);
+            entity.Property(e => e.LoginName)
+                .IsRequired()
+                .HasMaxLength(25);
             entity.Property(e => e.LoginPassword).HasMaxLength(100);
         });
 

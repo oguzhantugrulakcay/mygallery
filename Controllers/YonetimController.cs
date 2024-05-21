@@ -37,7 +37,10 @@ namespace mygallery.Controllers
                 BuyRequestCount=dbContext.BuyRequests.Where(r=>r.CreatedAt.Date==DateTime.Today).Count(),
                 MyCarsCount=0,
                 WaitingRequestCount=dbContext.BuyRequests.Where(r=>!r.IsCompleted).Count(),
-                Requests=dbContext.BuyRequests.Where(r=>!r.IsCompleted)
+                Requests=dbContext
+                .BuyRequests
+                .Where(r=>!r.IsCompleted)
+                .OrderByDescending(x=>x.CreatedAt)
                 .Select(r=>new AnasayfaViewModel.Request{
                     RequestId=r.RequestId,
                     BrandName=r.Model.Brand.BrandName,
@@ -45,7 +48,9 @@ namespace mygallery.Controllers
                     FuelType=r.FuelType,
                     GearType=r.GearType,
                     Year=r.Year
-                }).ToList()
+                })
+                .Take(10)
+                .ToList()
             };
             return View(vm);
         }

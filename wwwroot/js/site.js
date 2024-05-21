@@ -4,30 +4,46 @@
          * Bir mesaj gösterilecek ise çağırılacak fonksiyondur.
          * @param {string} msg Gösterilecek mesaj
          */
-        showMessage: function (msg, completed) {
-                swal(msg);
+        showMessage: function (msg, completed=null) {
+                swal(msg).then(()=>{
+                    if(completed!==null){
+                        completed();
+                    }
+                });
         },
         /**
          * Bir bilgi mesajı gösterilecek ise çağırılacak fonksiyondur. Başlık olarak "Bilgi" yazar.
          * @param {string} msg Gösterilecek mesaj
          */
-        showInformationMessage: function (msg) {
+        showInformationMessage: function (msg,completed=null) {
             
-                swal('Bilgi', msg, 'info');
+                swal('Bilgi', msg, 'info').then(()=>{
+                    if(completed!==null){
+                        completed();
+                    }
+                })
         },
         /**
          * Başarılı bir işlem mesajı gösterilecek ise çağırılacak fonksiyondur. Başlık olarak "İşlem Başarılı" yazar
          * @param {any} msg Gösterilecek mesaj
          */
-        showSuccessMessage: function (msg) {
-                swal('İşlem Başarılı', msg, 'success');
+        showSuccessMessage: function (msg,completed=null) {
+                swal('İşlem Başarılı', msg, 'success').then(()=>{
+                    if(completed!==null){
+                        completed();
+                    }
+                });
         },
         /**
          * Başarısız bir işlem mesajı gösterilecek ise çağırılacak fonksiyondur. Başlık olarak "İşlem Başarısız" yazar
          * @param {any} msg Gösterilecek mesaj
          */
-        showErrorMessage: function (msg, completed) {
-                swal('İşlem Başarısız', msg, 'error');
+        showErrorMessage: function (msg, completed=null) {
+                swal('İşlem Başarısız', msg, 'error').then(()=>{
+                    if(completed!==null){
+                        completed();
+                    }
+                })
         },
         showProgress: function () {
             $("div#spinner").fadeIn("fast");
@@ -125,7 +141,7 @@
             $.getJSON('/helper/getBrands', function (data) {
                 let options = []
                 $.each(data, function (index, item) {
-                    options.push('<option value="' + item.brandId + '">' + item.brandName + '</option>');
+                    options.push('<option value="' + item.BrandId + '">' + item.BrandName + '</option>');
                 });
                 $(elem)
                     .html(options.join(''))
@@ -152,7 +168,7 @@
             $.getJSON('/helper/getModels?BrandId=' + BrandId, function (data) {
                 let options = []
                 $.each(data, function (index, item) {
-                    options.push('<option value="' + item.modelId + '">' + item.modelName + '</option>');
+                    options.push('<option value="' + item.ModelId + '">' + item.ModelName + '</option>');
                 });
                 $(elem)
                     .html(options.join(''))

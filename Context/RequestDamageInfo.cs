@@ -9,9 +9,9 @@ public partial class RequestDamageInfo
 
     public int RequestId { get; set; }
 
-    public string PartName { get; set; } = null!;
+    public string PartName { get; set; }
 
-    public string Damage { get; set; } = null!;
+    public string Damage { get; set; }
 
-    public virtual BuyRequest Request { get; set; } = null!;
+    public virtual BuyRequest Request { get; set; }
 }
