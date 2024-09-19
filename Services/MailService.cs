@@ -5,7 +5,7 @@ using MimeKit;
 using mygallery.Data;
 
 public interface IMailService{
-    Task SendBuyRequestMail(string ModelName,string BrandName,int Year);
+    Task SendBuyRequestMail(string ModelName,string BrandName,int Year, int RequestId);
 }
 
 public class MailService:IMailService
@@ -33,7 +33,7 @@ public class MailService:IMailService
                 }
     }
 //TODO: test send mail
-    public async Task SendBuyRequestMail(string ModelName,string BrandName,int Year){
+    public async Task SendBuyRequestMail(string ModelName,string BrandName,int Year,int RequestId){
         var emailMessage = new MimeMessage();
         emailMessage.From.Add(new MailboxAddress(smtpSetting.SenderName,smtpSetting.SenderEmail));
         emailMessage.To.Add(new MailboxAddress("","ozgur@libertycars.com.tr"));
@@ -43,7 +43,8 @@ public class MailService:IMailService
 
         var body = templateContent.Replace("@@Brand", BrandName)
                                   .Replace("@@Model", ModelName)
-                                  .Replace("@@Year", Year.ToString());
+                                  .Replace("@@Year", Year.ToString())
+                                  .Replace("@@Url",$"{_appConfig.BaseUrl}/teklifler/{RequestId}/detay");
 
         var bodyBuilder=new BodyBuilder{HtmlBody=body};
         emailMessage.Body=bodyBuilder.ToMessageBody();

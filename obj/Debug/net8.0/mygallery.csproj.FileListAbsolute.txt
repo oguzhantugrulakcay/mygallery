@@ -332,3 +332,4 @@ C:/Users/oakcay/source/repos/oguzhantugrulakcay/mygallery/bin/Debug/net8.0/car_b
 /Volumes/OguzhanSSD/Projects/mygallery/bin/Debug/net8.0/Newtonsoft.Json.Bson.dll
 /Volumes/OguzhanSSD/Projects/mygallery/bin/Debug/net8.0/logs/log-20240520.json
 /Volumes/OguzhanSSD/Projects/mygallery/bin/Debug/net8.0/logs/log-20240521.json
+/Volumes/OguzhanSSD/Projects/mygallery/bin/Debug/net8.0/logs/log-20240912.json

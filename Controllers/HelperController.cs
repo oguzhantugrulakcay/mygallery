@@ -20,7 +20,9 @@ namespace mygallery.Controllers
             {
                 BrandId = b.BrandId,
                 BrandName = b.BrandName
-            }).ToList();
+            })
+            .OrderBy(b=>b.BrandName)
+            .ToList();
             return Json(brands);
         }
 
@@ -33,7 +35,9 @@ namespace mygallery.Controllers
                 {
                     ModelId = m.ModelId,
                     ModelName = m.ModelName
-                }).ToList();
+                })
+                .OrderBy(m=>m.ModelName)
+                .ToList();
             return Json(models);
         }
     }

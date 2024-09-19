@@ -51,8 +51,9 @@ public class HomeController : BaseController
 	}
 
 	[HttpPost]
-	public JsonResult json_send_request([FromBody] CustomerBuyRequestData data){
+	public async Task<JsonResult> json_send_request([FromBody] CustomerBuyRequestData data){
 		string errorMessage="Beklenmeyen bir sorun oluştu. Lütfen daha sonra tekrar deneyiniz.";
+		
 		var justRequest=new BuyRequest{
 			CreatedAt=DateTime.Now,
 			FistName=data.FirstName,
@@ -66,64 +67,83 @@ public class HomeController : BaseController
 			ModelId=data.ModelId,
 			Km=data.Km,
 		};
-		dbContext.BuyRequests.Add(justRequest);
+		await dbContext.BuyRequests.AddAsync(justRequest);
+		
 		try
 		{
-		dbContext.SaveChanges();
+			await dbContext.SaveChangesAsync();
 		}
 		catch (Exception ex)
 		{
 			
 			#if DEBUG
 			return Json(new Result(false,ex.Message+ex.InnerException?.Message));
+			#else
+			return Json(new Result(false,errorMessage))
 			#endif
-			return Json(new Result(false,errorMessage));
 
 		}
+		
 		foreach(var info in data.CarInfo){
 				var justInfo=new RequestDamageInfo{
 					RequestId=justRequest.RequestId,
 					PartName=info.Part,
 					Damage=info.Status,
 				};
-				dbContext.RequestDamageInfos.Add(justInfo);
+				await dbContext.RequestDamageInfos.AddAsync(justInfo);
 		}
 
 		try
 		{
 		dbContext.SaveChanges();
 		}
-		catch (System.Exception)
-		{			
-			return Json(new Result(false,errorMessage));
+		catch (System.Exception ex)
+		{		
+			#if DEBUG
+			return Json(new Result(false,ex.Message+ex.InnerException?.Message));
+			#else
+			return Json(new Result(false,errorMessage))
+			#endif
 		}
+		
 		foreach(var extension in data.ExtensionIds){
 			var justExtension=new BuyRequestExtension{
 				ExtensionId=extension,
 				IsHave=true,
 				RequestId=justRequest.RequestId
 			};
-			dbContext.BuyRequestExtensions.Add(justExtension);
+			await dbContext.BuyRequestExtensions.AddAsync(justExtension);
 		}
 
 		try
 		{
-		dbContext.SaveChanges();
+		await dbContext.SaveChangesAsync();
 		}
-		catch (System.Exception)
+		catch (Exception ex)
 		{			
-			return Json(new Result(false,errorMessage));
+			#if DEBUG
+			return Json(new Result(false,ex.Message+ex.InnerException?.Message));
+			#else
+			return Json(new Result(false,errorMessage))
+			#endif
 		}
-		var request=dbContext.BuyRequests.Include(r=>r.Model).FirstOrDefault(r=>r.RequestId==justRequest.RequestId);
+		
+		var request=await dbContext.BuyRequests.Include(r=>r.Model).FirstOrDefaultAsync(r=>r.RequestId==justRequest.RequestId);
 
-		mailService.SendBuyRequestMail(request.Model.ModelName,request.Model.Brand.BrandName,request.Year);
-
-		return Json(new Result(true,"Talebiniz alınmıştır. En kısa sürede size dönüş yapıyor olacağız."));
+		try{
+			await mailService.SendBuyRequestMail(request.Model.ModelName,request.Model.Brand.BrandName,request.Year,request.RequestId);
+			return Json(new Result(true,"Talebiniz alınmıştır. En kısa sürede size dönüş yapıyor olacağız."));
+		}catch(Exception ex){
+			#if DEBUG
+			return Json(new Result(false,ex.Message+ex.InnerException?.Message));
+			#else
+			return Json(new Result(false,errorMessage))
+			#endif
+		}
 	}
 
-
-	
 #endregion
+
 	[HttpGet]
 	[ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
 	public IActionResult Giris(string returnUrl)
@@ -180,40 +200,7 @@ public class HomeController : BaseController
 		return View();
 	}
 
-	[HttpPost]
-	public JsonResult jsonLoadBranModels()
-	{
-		var datas = new List<BrandModelData>();
-		if (System.IO.File.Exists("car_brand_models.json"))
-		{
-			var data = System.IO.File.ReadAllText("car_brand_models.json");
-			datas = JsonConvert.DeserializeObject<List<BrandModelData>>(data);
-		}
-
-		foreach (var data in datas)
-		{
-			var justBrand = new Brand
-			{
-				BrandName = data.brand
-			};
-
-			dbContext.Brands.Add(justBrand);
-			dbContext.SaveChanges();
-
-			foreach (var model in data.models)
-			{
-				var justModel = new Model
-				{
-					BrandId = justBrand.BrandId,
-					ModelName = model
-				};
-				dbContext.Models.Add(justModel);
-				dbContext.SaveChanges();
-			}
-		}
-
-		return Json(null);
-	}
+	
 
 	[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 	public IActionResult Error()
